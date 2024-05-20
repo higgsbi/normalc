@@ -1,0 +1,6 @@
+build/
+test/vgcore*
+*.out
+*.o
+*.a
+*.gch

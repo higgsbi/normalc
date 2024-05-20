@@ -1,0 +1,243 @@
+#include "string.h"
+#include "../memory/memory.h"
+#include "string_builder.h"
+#include <stdarg.h>
+#include <stdlib.h>
+#include <stdio.h>
+#include <string.h>
+#include <strings.h>
+#include <ctype.h>
+
+String* string_empty() {
+	String* dest = alloc(sizeof(String));
+	char* buffer = (char*) alloc(sizeof(char) * 1);
+	strncpy(buffer, "\0", 1);
+	dest->buffer = buffer;
+	dest->length = 0;	
+
+	return dest;
+}
+
+String* string_from(char* src) {
+	ASSERT_NONNULL(src);	
+
+	int length = strlen(src);
+
+	String* string = (String*) alloc(sizeof(String));
+	string->buffer = (char*) alloc(sizeof(char) * (length + 1));
+	string->length = length; 
+
+	strncpy(string->buffer, src, length);
+	strncpy(string->buffer + length, "\0", 1);
+
+	return string;
+}
+
+String* string_from_format(char* format, ...) {
+	ASSERT_NONNULL(format); 
+
+    va_list args;
+    va_start(args, format);
+
+    String* string = (String*) malloc(sizeof(String));
+    vasprintf(&string->buffer,  format, args);
+
+    va_end(args);
+
+	return string;
+}
+
+String* string_clone(String* src) {
+	ASSERT_NONNULL(src);
+
+	return string_from(src->buffer);
+}
+
+void string_free(String* string) {
+	ASSERT_NONNULL(string);	
+
+	free(string->buffer);
+	free(string);
+	string = NULL;
+}
+
+int string_index_of(String* string, char query) {
+	ASSERT_NONNULL(string);
+	ASSERT_NONNULL(string->buffer);
+
+	for (int i = 0; i < string->length; i++) {
+		if (string->buffer[i] == query) {
+			return i;
+		}	
+	}
+	
+	return -1;
+}
+
+int string_index_of_last(String* string, char query) {
+	ASSERT_NONNULL(string);
+	ASSERT_NONNULL(string->buffer);
+
+	for (int i = string->length - 1; i >= 0; i--) {
+		if (string->buffer[i] == query) {
+			return i;
+		}	
+	}
+
+	return -1;
+}
+
+int string_index_of_string(String* string, char* query) {
+	ASSERT_NONNULL(string);
+	ASSERT_NONNULL(string->buffer);
+
+	int length = strlen(query);
+
+	for (int i = 0; i < string->length - length; i++) {
+		for (int j = 0; j < length; j++) {
+			if (string->buffer[i + j] != query[j]) {
+				break;
+			}
+
+			if (j == length - 1) {	
+				return i;
+			}
+		}	
+	}
+
+	return -1;
+}
+
+int string_index_of_last_string(String* string, char* query) {
+	ASSERT_NONNULL(string);
+	ASSERT_NONNULL(string->buffer);	
+
+	int length = strlen(query);
+
+	for (int i = string->length - length - 1; i >= 0; i--) {
+		for (int j = length - 1; j >= 0; j--) {
+			if (string->buffer[i + j] != query[j]) {
+				break;
+			}
+
+			if (j == length -1) {	
+				return i;
+			}
+		}	
+	}
+
+	return -1;
+}
+
+String* string_sub(String* src, size_t start, size_t length) {
+	ASSERT_NONNULL(src);
+	ASSERT_VALID_RANGE((int) start, (int) (start + length));
+	ASSERT_VALID_BOUNDS(src, (int) start, (int) src->length);
+	ASSERT_VALID_BOUNDS(src, (int) (start + length), (int) src->length);
+
+	String* string = (String*) alloc(sizeof(String));
+	string->buffer = (char*) alloc(sizeof(char) * length + 1);
+	string->length = length;
+
+	strncpy(string->buffer, src->buffer + start, length);
+	strncpy(string->buffer + string->length, "\0", 1);
+
+	return string;
+}
+
+String* string_replace(String *src, char *replaced, char *replacer) {
+	ASSERT_NONNULL(src);
+	ASSERT_NONNULL(replaced);
+	ASSERT_NONNULL(replaced);
+
+	StringBuilder* builder = string_builder_new();	
+
+	int length_replaced = strlen(replaced);
+	size_t start_unmatched = 0;
+	bool matched = false; 
+
+	for (size_t i = 0; i < src->length; i++) {
+		matched = false;
+
+		// 1.) Check if current index is replaced
+		for (size_t j = 0; j < length_replaced; j++) {
+			if (src->buffer[i + j] != replaced[j]) {
+				// Not a match and not last index
+				break;
+			}
+			
+			matched = (j == length_replaced - 1);	
+		}
+
+		// 2.) Replace matched with replacer
+		if (matched) {
+			string_builder_append_substring(builder, src->buffer, start_unmatched, i - start_unmatched);	
+
+			string_builder_append(builder, replacer);	
+			i += length_replaced - 1;
+			start_unmatched = i + 1;
+		} else if (i == src->length -1) {
+			// 3.) Add unmatched tail from source
+			string_builder_append_substring(builder, src->buffer, start_unmatched, i - start_unmatched);			
+		}
+	}
+
+	String* built = string_builder_build(builder);
+	string_builder_free(builder);	
+
+	return built;
+}
+
+bool string_contains(String* src, char query) {
+	return string_index_of(src, query) != -1;	
+}
+
+bool string_contains_string(String* src, char* query) {
+	return string_index_of_string(src, query) != -1;
+}
+
+String* string_uppercase(char* src) {
+	ASSERT_NONNULL(src);
+
+	String* upper = string_from(src);
+	for (size_t i = 0; i < upper->length; i++) {
+		upper->buffer[i] = toupper(upper->buffer[i]);	
+	}
+
+	return upper;
+}
+
+String* string_lowercase(char* src) {
+	ASSERT_NONNULL(src);
+
+	String* upper = string_from(src);
+	for (size_t i = 0; i < upper->length; i++) {		
+		upper->buffer[i] = tolower(upper->buffer[i]);
+	}
+
+	return upper;
+}
+
+bool string_equals(String* src, char* other) {
+	ASSERT_NONNULL(src);
+	ASSERT_NONNULL(other);
+
+	return strcmp(src->buffer, other) == 0;
+}
+
+bool string_equals_ignore_case(String* src, char* other) {
+	ASSERT_NONNULL(src);
+	ASSERT_NONNULL(other);
+
+	return strcasecmp(src->buffer, other) == 0;
+}
+
+void string_print(String* string) {
+	printf("%s", string->buffer);
+}
+
+void string_println(String* string) {
+	printf("%s\n", string->buffer);
+}
+
+

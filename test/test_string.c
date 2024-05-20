@@ -1,0 +1,99 @@
+#include "standard/string/string.h"
+#include "standard/string/string_builder.h"
+#include <stdio.h>
+
+void test_builder();
+void test_string();
+void test_realworld();
+
+int main() {
+	test_string();
+	test_builder();
+	test_realworld();
+	return 0;
+}
+
+void test_realworld() {
+	printf("\nREAL WORLD TESTS\n\n");
+	String* data = string_from("List of elements: Hydrogen, Helium, Sulfur\nList of places: China, Korea, Japan\n");
+	
+	int start_elements = string_index_of(data, ':') + 2;
+	int start_places = string_index_of_last(data, ':') + 2;
+
+	int end_elements = string_index_of(data, '\n');
+	int end_places = string_index_of_last(data, '\n');
+
+	String* elements = string_sub(data, start_places, end_places - start_places);
+	String* places = string_sub(data, start_elements, end_elements - start_elements);
+
+	string_println(data);
+	string_println(elements);
+	string_println(places);
+
+	string_free(data);
+	string_free(elements);
+	string_free(places);
+}
+
+void test_builder() {
+	printf("\nSTRING BUILDER TESTS\n\n");
+	String* string = string_from("Hello");
+	string_println(string);
+
+	StringBuilder* builder = string_builder_from(string->buffer);
+	string_builder_append(builder, ".World");
+	string_builder_append(builder, ".Appended");
+	string_builder_append(builder, ".Message");
+	
+	String* built = string_builder_build(builder);
+	string_println(built);
+
+	string_free(string);
+	string_free(built);
+	string_builder_free(builder);
+}
+
+void test_string() {
+	printf("\nSTRING TESTS\n");
+	// Memory check
+	String* string = string_empty();
+	string_println(string);
+	string_free(string);
+
+	// From check
+	String* hello = string_from("Hello World! This is a message with two Hello's.");
+	string_println(hello);
+
+	// Clone check
+	String* clone = string_clone(hello);
+	string_println(clone);
+
+	// Compare check
+	printf("\nOriginal equals clone: %i\n\n", string_equals(hello, clone->buffer));
+
+	// Format check
+	String* formatted = string_from_format("This is a message: %s. This is an int %i:", "Hello", 20);
+	string_println(formatted);
+
+	// Index check
+	String* separated = string_from("A.B.C.D");	
+	printf("Index First: %i\n", string_index_of(separated, '.'));
+	printf("Index Last: %i\n", string_index_of_last(separated, '.'));
+
+	// Index string check
+	String* separated_string = string_from("A...B...C...D");
+	printf("Index First String: %i\n", string_index_of_string(separated_string, "..."));
+	printf("Index Last String: %i\n", string_index_of_last_string(separated_string, "..."));
+
+	// Replace check
+	String* replaced = string_replace(hello, "Hello", "Goodbye");
+	string_println(replaced);
+
+	// free
+	string_free(formatted);
+	string_free(replaced);
+	string_free(separated);
+	string_free(separated_string);
+	string_free(hello);
+	string_free(clone);
+}
