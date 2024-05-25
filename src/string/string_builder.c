@@ -8,8 +8,8 @@
 void _string_builder_expand(StringBuilder* builder, size_t added);
 
 StringBuilder* string_builder_new() {
-	StringBuilder* builder = (StringBuilder*) alloc(sizeof(StringBuilder));
-	(*builder).buffer = alloc(sizeof(char) * 1);
+	StringBuilder* builder = (StringBuilder*) allocate(sizeof(StringBuilder));
+	(*builder).buffer = allocate(sizeof(char) * 1);
 	(*builder).length = 0;
 
 	return builder;
@@ -20,8 +20,8 @@ StringBuilder* string_builder_from(char* buffer) {
 
 	size_t length = strlen(buffer);
 
-	StringBuilder* builder = (StringBuilder*) alloc(sizeof(StringBuilder));
-	builder->buffer = alloc(sizeof(char) * length);
+	StringBuilder* builder = (StringBuilder*) allocate(sizeof(StringBuilder));
+	builder->buffer = allocate(sizeof(char) * length);
 	builder->length = length;
 
 	strncpy(builder->buffer, buffer, length);	
@@ -32,8 +32,8 @@ StringBuilder* string_builder_from(char* buffer) {
 StringBuilder* string_builder_clone(StringBuilder* src) {
 	ASSERT_NONNULL(src);
 	
-	StringBuilder* copy = (StringBuilder*) alloc(sizeof(StringBuilder));
-	copy->buffer = alloc(sizeof(char) * src->length);
+	StringBuilder* copy = (StringBuilder*) allocate(sizeof(StringBuilder));
+	copy->buffer = allocate(sizeof(char) * src->length);
 	copy->length = src->length;
 
 	strncpy(copy->buffer, src->buffer, src->length);
@@ -73,8 +73,8 @@ void string_builder_append_substring(StringBuilder* builder, char* src, size_t s
 String* string_builder_build(StringBuilder* builder) {
 	ASSERT_NONNULL(builder);
 	
-	String* built = alloc(sizeof(String));
-	built->buffer = alloc(sizeof(char) * (builder->length + 1));
+	String* built = allocate(sizeof(String));
+	built->buffer = allocate(sizeof(char) * (builder->length + 1));
 	built->length = builder->length + 1;
 
 	strncpy(built->buffer, builder->buffer, builder->length);	
@@ -90,11 +90,7 @@ void _string_builder_expand(StringBuilder* builder, size_t added) {
 		return;
 	}
 	
-	builder->buffer = realloc(builder->buffer, builder->length + added);
-	if (builder->buffer == NULL) {
-		printf("Could not reallocate with size %zu", added);
-		exit(EXIT_FAILURE);
-	}
+	builder->buffer = reallocate(builder->buffer, builder->length + added);	
 }
 
 

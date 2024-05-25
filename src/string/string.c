@@ -9,8 +9,8 @@
 #include <ctype.h>
 
 String* string_empty() {
-	String* dest = alloc(sizeof(String));
-	char* buffer = (char*) alloc(sizeof(char) * 1);
+	String* dest = allocate(sizeof(String));
+	char* buffer = (char*) allocate(sizeof(char) * 1);
 	strncpy(buffer, "\0", 1);
 	dest->buffer = buffer;
 	dest->length = 0;	
@@ -23,8 +23,8 @@ String* string_from(char* src) {
 
 	int length = strlen(src);
 
-	String* string = (String*) alloc(sizeof(String));
-	string->buffer = (char*) alloc(sizeof(char) * (length + 1));
+	String* string = (String*) allocate(sizeof(String));
+	string->buffer = (char*) allocate(sizeof(char) * (length + 1));
 	string->length = length; 
 
 	strncpy(string->buffer, src, length);
@@ -39,8 +39,9 @@ String* string_from_format(char* format, ...) {
     va_list args;
     va_start(args, format);
 
-    String* string = (String*) malloc(sizeof(String));
+    String* string = (String*) allocate(sizeof(String));
     vasprintf(&string->buffer,  format, args);
+	string->length = strlen(string->buffer);
 
     va_end(args);
 
@@ -135,8 +136,8 @@ String* string_sub(String* src, size_t start, size_t length) {
 	ASSERT_VALID_BOUNDS(src, (int) start, (int) src->length);
 	ASSERT_VALID_BOUNDS(src, (int) (start + length), (int) src->length);
 
-	String* string = (String*) alloc(sizeof(String));
-	string->buffer = (char*) alloc(sizeof(char) * length + 1);
+	String* string = (String*) allocate(sizeof(String));
+	string->buffer = (char*) allocate(sizeof(char) * length + 1);
 	string->length = length;
 
 	strncpy(string->buffer, src->buffer + start, length);
@@ -196,10 +197,10 @@ bool string_contains_string(String* src, char* query) {
 	return string_index_of_string(src, query) != -1;
 }
 
-String* string_uppercase(char* src) {
+String* string_uppercase(String* src) {
 	ASSERT_NONNULL(src);
 
-	String* upper = string_from(src);
+	String* upper = string_clone(src);
 	for (size_t i = 0; i < upper->length; i++) {
 		upper->buffer[i] = toupper(upper->buffer[i]);	
 	}
@@ -207,15 +208,28 @@ String* string_uppercase(char* src) {
 	return upper;
 }
 
-String* string_lowercase(char* src) {
+String* string_lowercase(String* src) {
 	ASSERT_NONNULL(src);
 
-	String* upper = string_from(src);
+	String* upper = string_clone(src);
 	for (size_t i = 0; i < upper->length; i++) {		
 		upper->buffer[i] = tolower(upper->buffer[i]);
 	}
 
 	return upper;
+}
+
+// Simple hash function provided by Dan Bernstein 
+size_t string_hash(String* src) {
+	ASSERT_NONNULL(src);
+
+	size_t hash = 5381;
+
+	for (size_t i = 0; i < src->length; i++) {
+		hash = (hash << 5) + src->buffer[i];
+	}
+
+	return hash;
 }
 
 bool string_equals(String* src, char* other) {
@@ -230,6 +244,16 @@ bool string_equals_ignore_case(String* src, char* other) {
 	ASSERT_NONNULL(other);
 
 	return strcasecmp(src->buffer, other) == 0;
+}
+
+bool string_equals_string(String* src, String* other) {
+	ASSERT_NONNULL(other);
+	return string_equals(src, other->buffer);
+}
+
+bool string_equals_string_ignore_case(String* src, String* other) {
+	ASSERT_NONNULL(other);
+	return string_equals_ignore_case(src, other->buffer);
 }
 
 void string_print(String* string) {

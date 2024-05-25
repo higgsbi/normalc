@@ -5,6 +5,13 @@ set(SOURCES
 	src/string/string.c
 	src/string/string_builder.c
 	src/error/error.c
+	src/path/path.c
+	src/random/random.c
+	src/collections/vector.c
+	src/collections/array.c
+	src/collections/linked_list.c
+	src/collections/map.c
+	src/collections/map/entry.c
 )
 
 set(HEADERS 
@@ -12,12 +19,18 @@ set(HEADERS
 	src/string/string_builder.h
 	src/error/error.c
 	src/memory/memory.h
+	src/path/path.h
+	src/random/random.h
+	src/collections/vector.h
+	src/collections/array.h
+	src/collections/linked_list.h
+	src/collections/map.h
+	src/collections/map/entry.h
 )
 
 add_library(standard STATIC ${SOURCES} ${HEADERS})
 
 install(TARGETS standard DESTINATION /usr/local/lib)
-# install(FILES ${HEADERS} DESTINATION /usr/local/include/)
 install(DIRECTORY "${CMAKE_SOURCE_DIR}/src/" 
         DESTINATION "include/standard" 
         FILES_MATCHING

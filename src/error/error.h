@@ -29,7 +29,8 @@ bool err(Error error);
  */
 #define ASSERT_NONNULL(field)\
 	if (!field) {\
-		printf("\nNULL POINTER ERROR: %s is null\nSee: %s (%d)\n", #field, __FILE__, __LINE__);\
+		printf("\nNULL POINTER ERROR: '%s' is null\nSee: %s (line %d)\n",\
+				#field, __FILE__, __LINE__);\
 		exit(EXIT_FAILURE);\
 	}\
 	
@@ -39,7 +40,8 @@ bool err(Error error);
  */
 #define ASSERT_VALID_RANGE(start, end)\
 	if (start > end || end - start == 0) {\
-		printf("\nRANGE ERROR: range of start %s to end %s (length %d) is invalid.\nSee: %s (%d)\n", #start, #end, end - start, __FILE__, __LINE__);\
+		printf("\nRANGE ERROR: range of start '%s' to end '%s' (length %d) is invalid.\nSee: %s (line %d)\n",\
+				#start, #end, end - start, __FILE__, __LINE__);\
 		exit(EXIT_FAILURE);\
 	}\
 
@@ -48,7 +50,18 @@ bool err(Error error);
  */
 #define ASSERT_VALID_BOUNDS(collection, index, size)\
 	if (index < 0 || index >= size) {\
-		printf("\nBOUND ERROR: collection %s of size %d cannot be indexed at %d\nSee: %s (%d)\n", #collection, size, index, __FILE__, __LINE__);\
+		printf("\nILLEGAL BOUND ERROR: attempted access of collection '%s' of size %d at index %d (allowed: 0 🠚 %d).\nSee: %s (line %d)\n",\
+				#collection, size, index, size == 0 ? 0 : size - 1, __FILE__, __LINE__);\
+		exit(EXIT_FAILURE);\
+	}\
+
+/**
+ * Exits system if integer is invalid
+ */
+#define ASSERT_INT_GREATER(integer, required)\
+	if (integer <= required) {\
+		printf("\nINT SIZE ERROR: '%s' is of size %d, but is required to be greater than size %d\nSee: %s (line %d)\n",\
+				#integer, integer, required, __FILE__, __LINE__);\
 		exit(EXIT_FAILURE);\
 	}\
 

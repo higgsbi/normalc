@@ -15,8 +15,13 @@ sudo make install
 ## Usage
 
 All standard headers are prefixed with `standard/` so using a string would be
-`standard/string/string.h`. This allows for pseudo namespacing at the 
+`standard/string/string.h`. This allows for pseudo namespacing at the
 preprocessor level.
+
+## Tests
+
+To run a test, run the `test.sh` in the test folder with the first argument
+being the name of the test you want to run.
 
 ## Style
 
