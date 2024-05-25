@@ -4,17 +4,33 @@
 
 void test_builder();
 void test_string();
-void test_realworld();
+void test_split();
+void test_substrings();
 
 int main() {
 	test_string();
 	test_builder();
-	test_realworld();
+	test_split();
+	test_substrings();
 	return 0;
 }
 
-void test_realworld() {
-	printf("\nREAL WORLD TESTS\n\n");
+void test_split() {
+	printf("\n STRING SPLIT TESTS\n\n");
+
+	String* string = string_from("---Message--Separated-By--Dashes--With-Final-Word");
+	Vector* split = string_split(string, '-');
+
+	for (size_t i = 0; i < split->count; i++) {
+		string_println(vector_get(split, i));		
+	}
+
+	vector_free(split);
+	string_free(string);
+}
+
+void test_substrings() {
+	printf("\n STRING SUBSTRING TESTS\n\n");
 	String* data = string_from("List of elements: Hydrogen, Helium, Sulfur\nList of places: China, Korea, Japan\n");
 	
 	int start_elements = string_index_of(data, ':') + 2;
