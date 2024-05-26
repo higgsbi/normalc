@@ -33,6 +33,19 @@ String* string_from(char* src) {
 	return string;
 }
 
+String* string_from_substring(char* source, size_t start, size_t length) {
+	ASSERT_NONNULL(source);
+
+	String* string = (String*) allocate(sizeof(String));
+	string->buffer = (char*) allocate(sizeof(char) * (length + 1));
+	string->length = length; 
+
+	strncpy(string->buffer, source + start, length);
+	strncpy(string->buffer + length, "\0", 1);
+
+	return string;
+}
+
 String* string_from_format(char* format, ...) {
 	ASSERT_NONNULL(format); 
 
@@ -217,6 +230,25 @@ String* string_lowercase(String* src) {
 	}
 
 	return upper;
+}
+
+Vector* string_split(String* src, char delimiter) {
+	Vector* vector = vector_new(1, (Duplicator) string_clone, (Destructor) string_free);
+	size_t last_start = 0;
+
+	for (size_t i = 0; i < src->length; i++) {
+		if (src->buffer[i] == delimiter) {
+			if (i > 0 && src->buffer[i - 1] != delimiter) {		
+				/* printf("Starting from %zu with length %zu\n", last_start, i - last_start); */
+				vector_add(vector, string_from_substring(src->buffer, last_start, i - last_start));
+			}
+			last_start = i + 1;
+		} else if (i == src->length - 1 && i > 0 && src->buffer[i - 1] != delimiter) {		
+			vector_add(vector, string_from_substring(src->buffer, last_start, i + 1 - last_start));
+		}
+	}
+
+	return vector;
 }
 
 // Simple hash function provided by Dan Bernstein 

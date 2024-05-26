@@ -5,11 +5,31 @@
 #include "stdio.h"
 #include "stdbool.h"
 
+/**
+ * Destructor defines a function that takes in an opaque pointer and returns nothing
+ */
 typedef void (*Destructor) (void*);
+
+/**
+ * Duplicator defines a function that takes in an opaque pointer and returns a deep clone 
+ * of that pointer
+ */
 typedef void* (*Duplicator) (void*);
+
+/**
+ * Hasher defines a function that takes in an opaque pointer and returns a size_t hash
+ */
 typedef size_t (*Hasher) (void*);
+
+/**
+ * Comparator defines a function that takes in two opaque pointers of the same time and
+ * returns true if same, and false if different
+ */
 typedef bool (*Comparator) (void*, void*);
 
+/**
+ * Wrapper around malloc which exists system and prints debug message on failure
+ */
 static void* allocate(size_t size) {
 	void* pointer = malloc(size);
 	
@@ -21,6 +41,9 @@ static void* allocate(size_t size) {
 	return pointer;
 }
 
+/**
+ * Wrapper around realloc which exists system and prints debug message on failure
+ */
 static void* reallocate(void* original, size_t size) {
 	void* pointer = realloc(original, size);
 
