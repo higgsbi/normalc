@@ -4,3 +4,4 @@ test/vgcore*
 *.o
 *.a
 *.gch
+*.swp
