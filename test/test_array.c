@@ -1,4 +1,4 @@
-#include "standard/collections/array.h"
+#include <normalc/collections/array.h>
 #include <stdio.h>
 
 void test_basic();	

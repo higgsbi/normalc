@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.0)
-project(standard)
+project(normalc)
 
 set(SOURCES 
 	src/string/string.c
@@ -28,11 +28,11 @@ set(HEADERS
 	src/collections/map/entry.h
 )
 
-add_library(standard STATIC ${SOURCES} ${HEADERS})
+add_library(normalc STATIC ${SOURCES} ${HEADERS})
 
-install(TARGETS standard DESTINATION /usr/local/lib)
+install(TARGETS ${PROJECT_NAME} DESTINATION /usr/local/lib)
 install(DIRECTORY "${CMAKE_SOURCE_DIR}/src/" 
-        DESTINATION "include/standard" 
+	DESTINATION "include/${PROJECT_NAME}" 
         FILES_MATCHING
         PATTERN "*.h"
 )

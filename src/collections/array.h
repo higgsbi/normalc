@@ -1,5 +1,5 @@
-#ifndef STD_ARRAY_H
-#define STD_ARRAY_H
+#ifndef NORMALC_ARRAY_H
+#define NORMALC_ARRAY_H
 
 #include <stdlib.h>
 #include "../error/error.h"

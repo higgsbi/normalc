@@ -1,5 +1,5 @@
-#ifndef STD_VECTOR_H
-#define STD_VECTOR_H
+#ifndef NORMALC_VECTOR_H
+#define NORMALC_VECTOR_H
 
 #include <stdlib.h>
 #include "../error/error.h"
@@ -98,7 +98,7 @@ void* vector_get_clone(Vector* vector, size_t index);
 /**
  * Removes the element from the vector at the given index and frees it.
  */
-void vector_remove_discard(Vector* vector, size_t index);
+void vector_delete(Vector* vector, size_t index);
 
 /**
  * Returns a splice (shallow copy) of the original vector

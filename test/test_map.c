@@ -1,8 +1,8 @@
-#include <standard/collections/map.h>
-#include <standard/string/string.h>
-#include <standard/collections/vector.h>
-#include <standard/error/error.h>
-#include <standard/memory/memory.h>
+#include <normalc/collections/map.h>
+#include <normalc/string/string.h>
+#include <normalc/collections/vector.h>
+#include <normalc/error/error.h>
+#include <normalc/memory/memory.h>
 #include <stdio.h>
 
 void test_memory();
@@ -34,7 +34,7 @@ void test_removal() {
 	}
 
 	for (size_t i = 0; i < 5; i++) {
-		map_remove_discard(map, string_from_format("Key %zu", i), true);
+		map_delete(map, string_from_format("Key %zu", i), true);
 	}
 
 	MapSplice* splice = map_splice_new(map);

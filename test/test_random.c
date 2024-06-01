@@ -1,4 +1,4 @@
-#include "standard/random/random.h"
+#include <normalc/random/random.h>
 #include <stdio.h>
 
 int main() {

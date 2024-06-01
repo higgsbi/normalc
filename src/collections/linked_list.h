@@ -1,5 +1,5 @@
-#ifndef STD_LINKED_LIST_H
-#define STD_LINKED_LIST_H
+#ifndef NORMALC_LINKED_LIST_H
+#define NORMALC_LINKED_LIST_H
 
 #include "../memory/memory.h"
 #include <stdbool.h>
@@ -88,16 +88,16 @@ Node* linked_list_pop(LinkedList* list, size_t index);
 /**
  * Helper function for linked_list_pop_head(), but frees the return value
  */
-void linked_list_pop_head_discard(LinkedList* list);
+void linked_list_delete_head(LinkedList* list);
 
 /**
  * Helper function for linked_list_pop_tail(), but frees the return value
  */
-void linked_list_pop_tail_discard(LinkedList* list);
+void linked_list_delete_tail(LinkedList* list);
 
 /**
  * Helper function for linked_list_pop(), but frees the return value
  */
-void linked_list_pop_discard(LinkedList* list, size_t index);
+void linked_list_delete(LinkedList* list, size_t index);
 
 #endif

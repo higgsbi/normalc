@@ -1,5 +1,5 @@
-#ifndef STD_MAP_H
-#define STD_MAP_H
+#ifndef NORMALC_MAP_H
+#define NORMALC_MAP_H
 
 #include "linked_list.h"
 #include "vector.h"
@@ -103,7 +103,7 @@ Entry* map_remove(Map* map, void* key, bool discard_key);
 /**
  * Helper function for `map_remove()`, but automatically discards the return value
  */
-void map_remove_discard(Map* map, void* key, bool discard_key);
+void map_delete(Map* map, void* key, bool discard_key);
 
 /**
  * Inserts a key value pair into the map. 

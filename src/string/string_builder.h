@@ -1,5 +1,5 @@
-#ifndef STD_STRING_BUILDER_H
-#define STD_STRING_BUILDER_H
+#ifndef NORMALC_STRING_BUILDER_H
+#define NORMALC_STRING_BUILDER_H
 
 #include <stdlib.h>
 #include "../error/error.h"

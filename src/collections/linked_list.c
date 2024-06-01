@@ -203,15 +203,15 @@ Node* linked_list_pop(LinkedList* list, size_t index) {
 	return iterator;
 }
 
-void linked_list_pop_head_discard(LinkedList* list) {
+void linked_list_delete_head(LinkedList* list) {
 	linked_node_free(list, linked_list_pop_head(list));	
 }
 
-void linked_list_pop_tail_discard(LinkedList* list) {
+void linked_list_delete_tail(LinkedList* list) {
 	linked_node_free(list, linked_list_pop_tail(list));	
 }
 
-void linked_list_pop_discard(LinkedList* list, size_t index) {	
+void linked_list_delete(LinkedList* list, size_t index) {	
 	linked_node_free(list, linked_list_pop(list, index));	
 }
 

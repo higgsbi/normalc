@@ -1,8 +1,8 @@
-# New C Standard Library
+# Normalc
 
 ## Build
 
-The standard library is only available as a static library
+The normalc standard library is only available as a static library
 To install, CMake 3.0 is a prerequisite.
 
 ```bash
@@ -14,8 +14,8 @@ sudo make install
 
 ## Usage
 
-All standard headers are prefixed with `standard/` so using a string would be
-`standard/string/string.h`. This allows for pseudo namespacing at the
+All standard headers are prefixed with `normalc/` so using a string would be
+`normalc/string/string.h`. This allows for pseudo namespacing at the
 preprocessor level.
 
 ## Tests
@@ -26,6 +26,7 @@ being the name of the test you want to run.
 ## Style
 
 - Headers in the standard library should use relative paths (e.g., `../string/string.h`)
+    - This allows for reuse of header names (e.g., `string.h`) with pseudo "namespaces"
 - Structs, enums, and unions are capitalized camel case
 - Structs use `typedef` to reduce code length, regardless of opacity
 - Variables and functions are snake case

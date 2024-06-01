@@ -105,7 +105,7 @@ void* vector_remove(Vector* vector, size_t index) {
 }
 
 
-void vector_remove_discard(Vector* vector, size_t index) {
+void vector_delete(Vector* vector, size_t index) {
 	void* value = vector_remove(vector, index); 
 	vector->destructor(value);
 }

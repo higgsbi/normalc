@@ -1,5 +1,5 @@
-#include "standard/path/path.h"
-#include "standard/string/string.h"
+#include <normalc/path/path.h>
+#include <normalc/string/string.h>
 #include <stdio.h>
 
 void test_relative();

@@ -1,6 +1,6 @@
-#include "standard/collections/linked_list.h"
-#include "standard/string/string.h"
-#include <standard/memory/memory.h>
+#include <normalc/collections/linked_list.h>
+#include <normalc/string/string.h>
+#include <normalc/memory/memory.h>
 #include <stdio.h>
 
 void test_memory();
@@ -31,9 +31,9 @@ void test_pop() {
 	}
 
 	printf("Post popping tail - 1, head and tail\n");
-	linked_list_pop_discard(list, 2);
-	linked_list_pop_head_discard(list);
-	linked_list_pop_tail_discard(list);
+	linked_list_delete(list, 2);
+	linked_list_delete_head(list);
+	linked_list_delete_tail(list);
 
 	iterator = list->head;
 	while (iterator != NULL) {

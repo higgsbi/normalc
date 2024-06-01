@@ -1,5 +1,5 @@
-#ifndef STD_PATH_H
-#define STD_PATH_H
+#ifndef NORMALC_PATH_H
+#define NORMALC_PATH_H
 
 #include "../string/string_builder.h"
 

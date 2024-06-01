@@ -1,6 +1,6 @@
-#include "standard/collections/vector.h"
-#include "standard/string/string.h"
-#include <standard/memory/memory.h>
+#include <normalc/collections/vector.h>
+#include <normalc/string/string.h>
+#include <normalc/memory/memory.h>
 #include <stdio.h>
 
 void test_memory();

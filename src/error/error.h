@@ -1,5 +1,5 @@
-#ifndef STD_ERROR_H 
-#define STD_ERROR_H 
+#ifndef NORMALC_ERROR_H 
+#define NORMALC_ERROR_H 
 
 #include "stdbool.h"
 #include "stdio.h"

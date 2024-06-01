@@ -1,5 +1,5 @@
-#ifndef STD_ENTRY_H
-#define STD_ENTRY_H
+#ifndef NORMALC_ENTRY_H
+#define NORMALC_ENTRY_H
 
 #include "../../memory/memory.h"
 

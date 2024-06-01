@@ -1,8 +1,8 @@
 #include "map.h"
 #include "linked_list.h"
 #include "vector.h"
-#include <standard/error/error.h>
-#include <standard/string/string.h>
+#include "../error/error.h"
+#include "../string/string.h"
 #include <stdbool.h>
 #include <stdio.h>
 #include <time.h>
@@ -194,7 +194,7 @@ Entry* map_remove(Map* map, void* key, bool discard_key) {
 	return NULL;
 }
 
-void map_remove_discard(Map* map, void* key, bool discard_key) {
+void map_delete(Map* map, void* key, bool discard_key) {
 	Entry* retrieved = map_remove(map, key, discard_key);
 	if (retrieved) {
 		entry_free(retrieved, map->key_destructor, map->value_destructor);

@@ -1,5 +1,5 @@
-#include "standard/string/string.h"
-#include "standard/string/string_builder.h"
+#include <normalc/string/string.h>
+#include <normalc/string/string_builder.h>
 #include <stdio.h>
 
 void test_builder();

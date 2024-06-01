@@ -1,5 +1,5 @@
-#ifndef STD_STRING_H
-#define STD_STRING_H
+#ifndef NORMALC_STRING_H
+#define NORMALC_STRING_H
 
 #include <string.h>
 #include "../error/error.h"
