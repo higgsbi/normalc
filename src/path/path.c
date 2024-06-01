@@ -166,6 +166,10 @@ Vector* path_get_files(Path* path, bool use_absolute) {
 	Vector* files = vector_new(3, (Duplicator) path_clone, (Destructor) path_free);
 
 	while ((file_entry = readdir(directory))) {
+		if (!strcmp(file_entry->d_name, ".") || !strcmp(file_entry->d_name, "..")) {
+			continue;
+		}
+
 		if (file_entry->d_type == DT_DIR) {
 			if (use_absolute) {
 				String* appended = string_from_format("%s%s/", path->url->buffer, file_entry->d_name);
