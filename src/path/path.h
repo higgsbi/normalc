@@ -81,6 +81,14 @@ String* path_extension(Path* path);
 Vector* path_get_files(Path* path, bool absolute_path);
 
 /**
+ * Returns all the lines of text for the given file.
+ *
+ * If this file cannot be opened, an empty vector will
+ * be returned.
+ */
+Vector* path_get_lines(Path* path);
+
+/**
  * Returns true if this path is a directory
  */
 bool path_is_dir(Path* path);

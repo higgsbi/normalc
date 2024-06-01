@@ -9,6 +9,7 @@ void test_metadata();
 void test_custom();
 void test_parent();
 void test_subdirectories();
+void test_reading();
 
 int main() {
 	test_relative();
@@ -17,9 +18,25 @@ int main() {
 	test_appending();
 	test_metadata();
 	test_subdirectories();
+	test_reading();
 	return 0;
 }
 
+void test_reading() {	
+	printf("\n--Reading File--\n\n");	
+
+	Path* cwd = path_current();
+	Path* test = path_append(cwd, "file.txt");
+	Vector* lines = path_get_lines(test);
+
+	for (size_t i = 0; i < lines->count; i++) {
+		string_println(vector_get(lines, i));
+	}
+
+	vector_free(lines);
+	path_free(cwd);
+	path_free(test);
+}
 
 void test_subdirectories() {
 	printf("\n--Subdirectories and Files--\n\n");	
