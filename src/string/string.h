@@ -58,6 +58,20 @@ int string_index_of(String* string, char query);
 int string_index_of_last(String* string, char query);
 
 /**
+ * Returns the nth index of a query for the given string.
+ * The "nth index" starts at 1
+ * Returns -1 if none can be found
+ */
+int string_nth_index_of_last(String* string, size_t n, char query);
+
+/**
+ * Returns the nth last index of a query for the given string.
+ * The "nth index" starts at 1
+ * Returns -1 if none can be found
+ */
+int string_nth_index_of(String* string, size_t n, char query);
+
+/**
  * Returns the first index of the first letter of a query for the given string.
  * Returns -1 if none can be found
  */

@@ -75,30 +75,50 @@ void string_free(String* string) {
 	string = NULL;
 }
 
-int string_index_of(String* string, char query) {
+
+int string_nth_index_of(String* string, size_t n, char query) {
 	ASSERT_NONNULL(string);
 	ASSERT_NONNULL(string->buffer);
 
+	size_t count = 0;
+
 	for (int i = 0; i < string->length; i++) {
 		if (string->buffer[i] == query) {
-			return i;
+			count++;
+			if (count >= n) {	
+				return i;
+			}
 		}	
 	}
 	
 	return -1;
 }
 
-int string_index_of_last(String* string, char query) {
+int string_index_of(String* string, char query) {
+	return string_nth_index_of(string, 1, query);
+}
+
+int string_nth_index_of_last(String* string, size_t n, char query) {
+	size_t count = 0;
+
 	ASSERT_NONNULL(string);
 	ASSERT_NONNULL(string->buffer);
 
 	for (int i = string->length - 1; i >= 0; i--) {
 		if (string->buffer[i] == query) {
-			return i;
+			count++;
+
+			if (count >= n) {
+				return i;
+			}
 		}	
 	}
 
 	return -1;
+}
+
+int string_index_of_last(String* string, char query) {
+	return string_nth_index_of_last(string, 1, query);
 }
 
 int string_index_of_string(String* string, char* query) {

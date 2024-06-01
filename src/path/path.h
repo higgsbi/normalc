@@ -26,6 +26,17 @@ Path* path_root();
 Path* path_user();
 
 /**
+ * Returns the current path given the passed url
+ */
+Path* path_from_cstring(char* url);
+
+/**
+ * Returns the current path given the passed url
+ * If discard_url is false, the given url will be cloned, leaving the original untouched
+ */
+Path* path_from_string(String* url, bool discard_url);
+
+/**
  * Returns a deep clone of a given path
  */
 Path* path_clone(Path* src);
@@ -34,6 +45,14 @@ Path* path_clone(Path* src);
  * Frees the given path
  */
 void path_free(Path* path);
+
+/**
+ * Returns the parent of this path.
+ * If the current path is a file, this function returns the file's directory
+ * If the current path is a directory, this function returns the preceding directory.
+ * If the current path is the root directory, path_root() is returned 
+ */
+Path* path_parent(Path* path);
 
 /**
  * Returns a path with the given cstring appended to the end. Does not free
@@ -49,7 +68,6 @@ String* path_extension(Path* path);
 
 /**
  * Returns true if this path is a directory
- * Note: uses !S_ISREG(path#st_mode) and thus may behave unexpectedly with virtual files
  */
 bool path_is_dir(Path* path);
 
