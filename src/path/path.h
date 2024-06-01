@@ -2,6 +2,7 @@
 #define NORMALC_PATH_H
 
 #include "../string/string_builder.h"
+#include "../collections/vector.h"
 
 /**
  * Path defines a wrapper around an immutable heap allocated string url
@@ -65,6 +66,15 @@ Path* path_append(Path* path, char* appended);
  * Returns a blank string if this file is a directory
  */
 String* path_extension(Path* path); 
+
+/**
+ * Returns a vector of Paths representing subdirectories 
+ * and files in the given path.
+ *
+ * If the given path is either empty or not a directory,
+ * an empty vector is returned.
+ */
+Vector* path_get_files(Path* path);
 
 /**
  * Returns true if this path is a directory

@@ -1,3 +1,4 @@
+#include <normalc/collections/vector.h>
 #include <normalc/path/path.h>
 #include <normalc/string/string.h>
 #include <stdio.h>
@@ -7,6 +8,7 @@ void test_appending();
 void test_metadata();
 void test_custom();
 void test_parent();
+void test_subdirectories();
 
 int main() {
 	test_relative();
@@ -14,7 +16,24 @@ int main() {
 	test_parent();
 	test_appending();
 	test_metadata();
+	test_subdirectories();
 	return 0;
+}
+
+
+void test_subdirectories() {
+	printf("\n--Subdirectories and Files--\n\n");	
+	Path* home = path_user(); 
+
+	Vector* files = path_get_files(home);
+
+	for (size_t i = 0; i < files->count; i++) {
+		Path* file = vector_get(files, i);
+		string_println(file->url);
+	}
+	
+	vector_free(files);
+	path_free(home);
 }
 
 void test_custom() {	

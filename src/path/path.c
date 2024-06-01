@@ -5,10 +5,12 @@
 #include <stdbool.h>
 #include <stdio.h>
 #include <string.h>
+#include <time.h>
 #include <unistd.h>
 #include <stdlib.h>
 #include <sys/types.h>
 #include <sys/stat.h>
+#include <dirent.h>
 
 bool _cstring_is_dir(char* path);
 
@@ -152,12 +154,35 @@ void path_free(Path* path) {
 	free(path);
 }
 
+Vector* path_get_files(Path* path) {
+	struct dirent* file_entry;
+
+	DIR* directory = opendir(path->url->buffer);	
+	if (!directory) {
+		closedir(directory);
+		return vector_new(0, (Duplicator) path_clone, (Destructor) path_free);
+	}
+
+	
+	Vector* files = vector_new(3, (Duplicator) path_clone, (Destructor) path_free);
+
+	while ((file_entry = readdir(directory))) {
+		vector_add(files, path_from_cstring(file_entry->d_name));
+	}
+
+	closedir(directory);
+
+	return files;
+}
+
 // Internal
 
 bool _cstring_is_dir(char* path) {
 	struct stat path_stat;
+
     if (lstat(path, &path_stat) != 0) {
 		return false;
 	}
+
 	return (path_stat.st_mode & S_IFDIR);
 }
