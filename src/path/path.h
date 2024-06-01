@@ -71,10 +71,14 @@ String* path_extension(Path* path);
  * Returns a vector of Paths representing subdirectories 
  * and files in the given path.
  *
+ * If the absolute_path parameter is true, the full path name
+ * will be used for each file instead of the relative name.
+ *
  * If the given path is either empty or not a directory,
  * an empty vector is returned.
+ * 
  */
-Vector* path_get_files(Path* path);
+Vector* path_get_files(Path* path, bool absolute_path);
 
 /**
  * Returns true if this path is a directory

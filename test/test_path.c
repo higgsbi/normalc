@@ -25,7 +25,7 @@ void test_subdirectories() {
 	printf("\n--Subdirectories and Files--\n\n");	
 	Path* home = path_user(); 
 
-	Vector* files = path_get_files(home);
+	Vector* files = path_get_files(home, true);
 
 	for (size_t i = 0; i < files->count; i++) {
 		Path* file = vector_get(files, i);

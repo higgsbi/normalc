@@ -154,7 +154,7 @@ void path_free(Path* path) {
 	free(path);
 }
 
-Vector* path_get_files(Path* path) {
+Vector* path_get_files(Path* path, bool use_absolute) {
 	struct dirent* file_entry;
 
 	DIR* directory = opendir(path->url->buffer);	
@@ -162,12 +162,26 @@ Vector* path_get_files(Path* path) {
 		closedir(directory);
 		return vector_new(0, (Duplicator) path_clone, (Destructor) path_free);
 	}
-
 	
 	Vector* files = vector_new(3, (Duplicator) path_clone, (Destructor) path_free);
 
 	while ((file_entry = readdir(directory))) {
-		vector_add(files, path_from_cstring(file_entry->d_name));
+		if (file_entry->d_type == DT_DIR) {
+			if (use_absolute) {
+				String* appended = string_from_format("%s%s/", path->url->buffer, file_entry->d_name);
+				vector_add(files, path_from_string(appended, true));
+			} else {
+				String* appended = string_from_format("%s/", file_entry->d_name);;
+				vector_add(files, path_from_string(appended, true));
+			}	
+		} else {
+			if (use_absolute) {
+				String* appended = string_from_format("%s%s", path->url->buffer, file_entry->d_name);
+				vector_add(files, path_from_string(appended, true));
+			} else {	
+				vector_add(files, path_from_cstring(file_entry->d_name));
+			}
+		}
 	}
 
 	closedir(directory);
