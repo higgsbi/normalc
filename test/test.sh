@@ -29,7 +29,7 @@ cd ../test/
 
 gcc -Werror $1 -L /usr/local/lib -lnormalc
 
-if [[ $2 == "debug" ]]; then
+if [[ $2 == "--debug" ]]; then
 	valgrind -s --leak-check=full --track-origins=yes ./a.out
 else 
 	./a.out
