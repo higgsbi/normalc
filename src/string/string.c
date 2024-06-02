@@ -127,6 +127,10 @@ int string_index_of_string(String* string, char* query) {
 
 	int length = strlen(query);
 
+	if (((int) string->length) - length < 1) {
+		return -1;
+	}
+
 	for (int i = 0; i < string->length - length; i++) {
 		for (int j = 0; j < length; j++) {
 			if (string->buffer[i + j] != query[j]) {
