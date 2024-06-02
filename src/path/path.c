@@ -1,7 +1,7 @@
 #include "path.h"
 #include "../memory/memory.h"
 #include "../string/string_builder.h"
-#include <normalc/string/string.h>
+#include "../string/string.h"
 #include <stdbool.h>
 #include <stdio.h>
 #include <string.h>
