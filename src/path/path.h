@@ -89,6 +89,13 @@ Vector* path_get_files(Path* path, bool absolute_path);
 Vector* path_get_lines(Path* path);
 
 /**
+ * Returns n number of lines of text for a givne file
+ *
+ * If this file cannot be opened, an empty vector will be returned
+ */
+Vector* path_get_n_lines(Path* path, size_t line_count);
+
+/**
  * Returns true if this path is a directory
  */
 bool path_is_dir(Path* path);

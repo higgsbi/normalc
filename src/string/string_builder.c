@@ -1,7 +1,6 @@
 #include "string_builder.h"
 #include "../memory/memory.h"
 #include "string.h"
-#include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 
@@ -75,10 +74,10 @@ String* string_builder_build(StringBuilder* builder) {
 	
 	String* built = allocate(sizeof(String));
 	built->buffer = allocate(sizeof(char) * (builder->length + 1));
-	built->length = builder->length + 1;
+	built->length = builder->length;
 
 	strncpy(built->buffer, builder->buffer, builder->length);	
-	strncpy(built->buffer + builder->length, "\0", 1);
+	strncpy(built->buffer + builder->length , "\0", 1);
 
 	return built;
 }
