@@ -43,7 +43,11 @@ Path* path_user() {
 
 	ASSERT_NONNULL(user);
 
+#ifdef __APPLE__ 
+	path->url = string_from_format("/Users/%s/", user);
+#else
 	path->url = string_from_format("/home/%s/", user);
+#endif
 
 	return path;
 }
@@ -159,7 +163,6 @@ Vector* path_get_files(Path* path, bool use_absolute) {
 
 	DIR* directory = opendir(path->url->buffer);	
 	if (!directory) {
-		closedir(directory);
 		return vector_new(0, (Duplicator) path_clone, (Destructor) path_free);
 	}
 	

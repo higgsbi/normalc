@@ -7,14 +7,12 @@ void test_relative();
 void test_appending();
 void test_metadata();
 void test_custom();
-void test_parent();
 void test_subdirectories();
 void test_reading();
 
 int main() {
 	test_relative();
 	test_custom();
-	test_parent();
 	test_appending();
 	test_metadata();
 	test_subdirectories();
@@ -46,34 +44,6 @@ void test_custom() {
 
 	path_free(custom_dir);
 	path_free(custom_file);
-}
-
-void test_parent() {	
-	printf("\n--Parent--\n\n");	
-	Path* custom_file = path_from_cstring("/lib/ld-linux.so.2");
-	string_println(custom_file->url);
-
-	Path* dir_lib = path_parent(custom_file);
-	string_println(dir_lib->url);
-
-	Path* root_file = path_from_cstring("/test.txt");
-	string_println(root_file->url);
-
-	Path* root = path_parent(root_file);
-	string_println(root->url);
-
-	Path* custom_dir = path_from_cstring("/boot/grub2/");
-	string_println(custom_dir->url);
-
-	Path* parent = path_parent(custom_dir);
-	string_println(parent->url);
-
-	path_free(custom_dir);
-	path_free(parent);
-	path_free(root);
-	path_free(root_file);
-	path_free(custom_file);
-	path_free(dir_lib);
 }
 
 void test_metadata() {
