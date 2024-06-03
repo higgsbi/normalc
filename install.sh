@@ -5,4 +5,4 @@ cd build
 cmake ..
 make
 sudo make install
-rm -rf ../
+rm -rf ../../normalc

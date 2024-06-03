@@ -16,7 +16,10 @@ sudo make install
 ```
 
 Or, you can use the simplified `install.sh` script in the root folder here:
-`/bin/bash -c "$(curl -fs https://raw.githubusercontent.com/higgsbi/normalc/main/install.sh)"`
+
+```bash
+/bin/bash -c "$(curl -fs https://raw.githubusercontent.com/higgsbi/normalc/main/install.sh)"
+```
 
 ## Usage
 
