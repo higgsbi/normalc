@@ -3,14 +3,20 @@
 ## Build
 
 The normalc standard library is only available as a static library
-To install, CMake 3.0 is a prerequisite.
+For installation, CMake 3.0 is a prerequisite.
+You can install manually as follows:
 
 ```bash
+git clone https://github.com/higgsbi/normalc/
+cd normalc
 mkdir build
 cd build
 cmake ..
 sudo make install
 ```
+
+Or, you can use the simplified `install.sh` script in the root folder here:
+`/bin/bash -c "$(curl -fs https://raw.githubusercontent.com/higgsbi/normalc/main/install.sh)"`
 
 ## Usage
 
