@@ -1,5 +1,5 @@
 #include "io.h"
-#include <normalc/string/string.h>
+#include "../string/string.h"
 #include <stdbool.h>
 
 bool _io_read_line(FILE* stream, String** dest);
