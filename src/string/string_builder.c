@@ -47,6 +47,14 @@ void string_builder_free(StringBuilder* builder) {
 	free(builder);
 }
 
+void string_builder_append_char(StringBuilder* builder, char appended) {
+	ASSERT_NONNULL(builder);
+
+	_string_builder_expand(builder, 1);
+	builder->buffer[builder->length] = appended;
+	builder->length++;
+}
+
 void string_builder_append(StringBuilder* builder, char* appended) {
 	ASSERT_NONNULL(builder);
 	ASSERT_NONNULL(appended);

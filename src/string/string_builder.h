@@ -19,6 +19,7 @@ StringBuilder* string_builder_clone(StringBuilder* src);
 void string_builder_free(StringBuilder* builder);
 
 void string_builder_append(StringBuilder* builder, char* appended);
+void string_builder_append_char(StringBuilder* builder, char appended);
 void string_builder_append_substring(StringBuilder* builder, char* src, size_t start, size_t length);
 String* string_builder_build(StringBuilder* builder);
 

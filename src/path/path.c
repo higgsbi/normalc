@@ -193,38 +193,6 @@ Vector* path_get_files(Path* path, bool use_absolute) {
 	return files;
 }
 
-Vector* path_get_lines(Path* path) {
-	return path_get_n_lines(path, 0);	
-}
-
-Vector* path_get_n_lines(Path* path, size_t line_count) {
-	Vector* vector = vector_new(5, (Duplicator) string_clone, (Destructor) string_free);
-	FILE* file = fopen(path->url->buffer, "r");
-
-	if (!file) {
-		return vector;
-	}
-
-	char* line = NULL;
-	ssize_t line_length;
-	size_t DEFAULT_LENGTH = 64;
-	size_t lines = 0;
-
-	while ((line_length = getline(&line, &DEFAULT_LENGTH, file)) != -1) {
-		vector_add(vector, string_from_substring(line, 0, line_length - 1));	
-		lines++;
-
-		if (line_count > 0 && lines >= line_count) {
-			break;
-		}
-	}
-
-	free(line);
-	fclose(file);
-
-	return vector;
-}
-
 // Internal
 
 bool _cstring_is_dir(char* path) {

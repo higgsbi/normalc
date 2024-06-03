@@ -6,6 +6,7 @@ set(SOURCES
 	src/string/string_builder.c
 	src/error/error.c
 	src/path/path.c
+	src/path/io.c
 	src/random/random.c
 	src/collections/vector.c
 	src/collections/array.c
@@ -20,6 +21,7 @@ set(HEADERS
 	src/error/error.c
 	src/memory/memory.h
 	src/path/path.h
+	src/path/io.h
 	src/random/random.h
 	src/collections/vector.h
 	src/collections/array.h
