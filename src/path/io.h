@@ -13,6 +13,7 @@
 String* io_file_read(Path* path);
 Vector* io_file_read_lines(Path* path);
 Vector* io_file_read_n_lines(Path* path, int n);
+bool io_file_read_line(String** dest, FILE* file);
 bool io_input_read_line(String** dest);
 
 #endif

@@ -1,6 +1,9 @@
 #include "io.h"
 #include "../string/string.h"
+#include <normalc/collections/vector.h>
+#include <normalc/string/string.h>
 #include <stdbool.h>
+#include <stdio.h>
 
 bool _io_read_line(FILE* stream, String** dest);
 
@@ -43,6 +46,10 @@ Vector* io_file_read_lines(Path* path) {
 
 Vector* io_file_read_n_lines(Path* path, int n) {
 	ASSERT_NONNULL(path);
+
+	if (n == 0) {
+		return vector_new(0, (Duplicator) string_clone, (Destructor) string_free);
+	}
 	
 	Vector* lines = vector_new(DEFAULT_LINE_PER_FILE, (Duplicator) string_clone, (Destructor) string_free);
 	FILE* file = fopen(path->url->buffer, "r");
@@ -54,14 +61,17 @@ Vector* io_file_read_n_lines(Path* path, int n) {
 	String* line;	
 	int i = 0;
 
-	for (int i = 0; (n < 0 || i < n) && (_io_read_line(file, &line)); i++) {
-		vector_add(lines, line);		
+	for (int i = 0; (_io_read_line(file, &line)); i++) {
+		if ((n < 0 || i < n)) {
+			vector_add(lines, line);		
+		} else {
+			// if not adding to vector, free manually
+			string_free(line);
+		}
 	}
 
-	if (n <= 0) {
-		string_free(line);
-	}
-
+	// free the last read and close file
+	string_free(line);
 	fclose(file);
 
 	return lines;
@@ -69,6 +79,10 @@ Vector* io_file_read_n_lines(Path* path, int n) {
 
 bool io_input_read_line(String** dest) {
 	return _io_read_line(stdin, dest);
+}
+
+bool io_file_read_line(String** dest, FILE* file) {
+	return _io_read_line(file, dest);
 }
 
 // INTERNAL

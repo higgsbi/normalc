@@ -31,7 +31,7 @@ void test_file_lines() {
 
 	Path* cwd = path_current();
 	Path* test = path_append(cwd, "file.txt");
-	Vector* lines = io_file_read_lines(test);
+	Vector* lines = io_file_read_n_lines(test, 10);
 
 	for (size_t i = 0; i < lines->count; i++) {
 		string_println(vector_get(lines, i));
