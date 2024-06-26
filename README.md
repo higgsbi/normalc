@@ -15,7 +15,20 @@ cmake ..
 sudo make install
 ```
 
-Or, you can use the simplified `install.sh` script in the root folder here:
+For local installations without root permissions, cmake commands 
+should be alterted to pick a local prefix. You can edit the following script 
+for ease of use:
+
+```bash
+git clone https://github.com/higgsbi/normalc/
+cd normalc
+mkdir build
+cd build
+cmake -D CMAKE_INSTALL_PREFIX:PATH=(YOUR__PATH_HERE) ..
+make install
+```
+
+Or, you can use the simplified `install.sh` script in the root folder below:
 
 ```bash
 /bin/bash -c "$(curl -fs https://raw.githubusercontent.com/higgsbi/normalc/main/install.sh)"
@@ -25,7 +38,7 @@ Or, you can use the simplified `install.sh` script in the root folder here:
 
 All standard headers are prefixed with `normalc/` so using a string would be
 `normalc/string/string.h`. This allows for pseudo namespacing at the
-preprocessor level.
+preprocessor level. For examples, see the "Tests" header.
 
 ## Tests
 
