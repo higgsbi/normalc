@@ -1,21 +1,24 @@
 #ifndef NORMALC_MAP_H
 #define NORMALC_MAP_H
 
-#include "linked_list.h"
 #include "vector.h"
-#include <stdbool.h>
 #include "map/entry.h"
+#include "map/entry_set.h"
+#include <stdbool.h>
 
 /**
  * MAP_LOAD_SIZE is used to determine if the map needs to be rehashed.
  *
- * The map will opt to rehash if ((map->entry_count / MAP_LOAD_SIZE) + 1) > vector->capacity
+ * The map will opt to rehash if ((map->entry_count / MAP_LOAD_SIZE) + 1) > entries->capacity
  *
  * If this is set to a smaller value, the map will rehash more often which may provide higher 
  * insert speeds at the cost of memory usage. If this is set to a higher value, the map will rehash
  * left often resulting in lower insert speeds, but less memory usage.
  */
+
+#ifndef MAP_LOAD_SIZE
 #define MAP_LOAD_SIZE 0.75
+#endif
 
 /**
  * Map defines a hash map with a dynamically allocated opaque pointer
@@ -28,10 +31,10 @@
  *
  * Important: "entry_count" is the number of total entries, even with matching 
  * hash values. "entries->count" should be used if any traversing of the
- * entries vector is done
+ * entries entry set is done
  */
 typedef struct {
-	Vector* entries;
+	EntrySet* entries;
 	size_t entry_count;
 	Hasher key_hasher;
 	Comparator key_comparator;

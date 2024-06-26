@@ -4,11 +4,7 @@
 void _vector_try_expand(Vector* vector);
 void _vector_move_down(Vector* vector, size_t removed);
 
-Vector* vector_new(
-			size_t capacity, 
-			Duplicator duplicator, 
-			Destructor destructor
-		) {	
+Vector* vector_new(size_t capacity, Duplicator duplicator, Destructor destructor) {	
 	ASSERT_NONNULL(duplicator);
 	ASSERT_NONNULL(destructor);
 

@@ -28,6 +28,18 @@ typedef size_t (*Hasher) (void*);
 typedef bool (*Comparator) (void*, void*);
 
 /**
+ * Empty duplicator to be used in data structures which should not duplicate any value on clone
+ */
+static void* duplicator_empty(__attribute__ ((unused)) void* object) {
+	return object;
+}
+
+/**
+ * Empty destructor to be used in data structures which should not free any data no destruction
+ */
+static void destructor_empty(__attribute__ ((unused)) void* object) {}
+
+/**
  * Wrapper around malloc which exists system and prints debug message on failure
  */
 static void* allocate(size_t size) {

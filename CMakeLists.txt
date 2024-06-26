@@ -13,6 +13,7 @@ set(SOURCES
 	src/collections/linked_list.c
 	src/collections/map.c
 	src/collections/map/entry.c
+	src/collections/map/entry_set.c
 )
 
 set(HEADERS 
@@ -28,6 +29,7 @@ set(HEADERS
 	src/collections/linked_list.h
 	src/collections/map.h
 	src/collections/map/entry.h
+	src/collections/map/entry_set.h
 )
 
 add_library(normalc STATIC ${SOURCES} ${HEADERS})
