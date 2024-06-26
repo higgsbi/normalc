@@ -24,7 +24,7 @@ git clone https://github.com/higgsbi/normalc/
 cd normalc
 mkdir build
 cd build
-cmake -D CMAKE_INSTALL_PREFIX:PATH=(YOUR__PATH_HERE) ..
+cmake -D CMAKE_INSTALL_PREFIX:PATH=(YOUR_PATH_HERE) ..
 make install
 ```
 
