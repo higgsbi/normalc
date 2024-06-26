@@ -1,7 +1,7 @@
 #include "io.h"
 #include "../string/string.h"
-#include <normalc/collections/vector.h>
-#include <normalc/string/string.h>
+#include "../collections/vector.h"
+#include "../string/string.h"
 #include <stdbool.h>
 #include <stdio.h>
 
@@ -59,7 +59,6 @@ Vector* io_file_read_n_lines(Path* path, int n) {
 	}
 
 	String* line;	
-	int i = 0;
 
 	for (int i = 0; (_io_read_line(file, &line)); i++) {
 		if ((n < 0 || i < n)) {

@@ -31,6 +31,7 @@ set(HEADERS
 )
 
 add_library(normalc STATIC ${SOURCES} ${HEADERS})
+target_compile_options(normalc PRIVATE -Wall -Wextra -Wpedantic -Werror -Wno-unused-function)
 
 install(TARGETS ${PROJECT_NAME} DESTINATION /usr/local/lib)
 install(DIRECTORY "${CMAKE_SOURCE_DIR}/src/" 

@@ -4,6 +4,7 @@
 #include <stdarg.h>
 #include <stdlib.h>
 #include <stdio.h>
+#include <stdint.h>
 #include <string.h>
 #include <strings.h>
 #include <ctype.h>
@@ -21,7 +22,7 @@ String* string_empty() {
 String* string_from(char* src) {
 	ASSERT_NONNULL(src);	
 
-	int length = strlen(src);
+	size_t length = strlen(src);
 
 	String* string = (String*) allocate(sizeof(String));
 	string->buffer = (char*) allocate(sizeof(char) * (length + 1));
@@ -82,7 +83,7 @@ int string_nth_index_of(String* string, size_t n, char query) {
 
 	size_t count = 0;
 
-	for (int i = 0; i < string->length; i++) {
+	for (size_t i = 0; i < string->length; i++) {
 		if (string->buffer[i] == query) {
 			count++;
 			if (count >= n) {	
@@ -104,7 +105,7 @@ int string_nth_index_of_last(String* string, size_t n, char query) {
 	ASSERT_NONNULL(string);
 	ASSERT_NONNULL(string->buffer);
 
-	for (int i = string->length - 1; i >= 0; i--) {
+	for (size_t i = string->length - 1; i != SIZE_MAX; i--) {
 		if (string->buffer[i] == query) {
 			count++;
 
@@ -125,14 +126,14 @@ int string_index_of_string(String* string, char* query) {
 	ASSERT_NONNULL(string);
 	ASSERT_NONNULL(string->buffer);
 
-	int length = strlen(query);
+	size_t length = strlen(query);
 
 	if (((int) string->length) - length < 1) {
 		return -1;
 	}
 
-	for (int i = 0; i < string->length - length; i++) {
-		for (int j = 0; j < length; j++) {
+	for (size_t i = 0; i < string->length - length; i++) {
+		for (size_t j = 0; j < length; j++) {
 			if (string->buffer[i + j] != query[j]) {
 				break;
 			}
@@ -190,7 +191,7 @@ String* string_replace(String *src, char *replaced, char *replacer) {
 
 	StringBuilder* builder = string_builder_new();	
 
-	int length_replaced = strlen(replaced);
+	size_t length_replaced = strlen(replaced);
 	size_t start_unmatched = 0;
 	bool matched = false; 
 

@@ -27,7 +27,7 @@ sudo make install | grep -w "Installing\|.h"
 
 cd ../test/
 
-gcc -Werror $1 -L /usr/local/lib -lnormalc
+gcc -Werror -Wall $1 -L /usr/local/lib -lnormalc
 
 if [[ $2 == "--debug" ]]; then
 	valgrind -s --leak-check=full --track-origins=yes ./a.out

@@ -38,7 +38,7 @@ void array_add(Array* array, void* element) {
 	ASSERT_NONNULL(element);
 
 	_array_try_expand(array);
-	memcpy(array->data + (array->count * array->element_size), element, array->element_size);
+	memcpy((char*) array->data + (array->count * array->element_size), element, array->element_size);
 	array->count++;
 }
 
@@ -49,10 +49,10 @@ void array_set(Array* array, size_t index, void* element) {
 	if (index >= array->count) {	
 		ASSERT_VALID_BOUNDS(array, (int) index, (int) array->count + 1);
 		_array_try_expand(array);
-		memcpy(array->data + (index * array->element_size), element, array->element_size);
+		memcpy((char*) array->data + (index * array->element_size), element, array->element_size);
 		array->count++;
 	} else {	
-		memcpy(array->data + (index * array->element_size), element, array->element_size);
+		memcpy((char*) array->data + (index * array->element_size), element, array->element_size);
 	}
 }
 
@@ -116,7 +116,7 @@ void* array_get(Array* array, size_t index) {
 	ASSERT_NONNULL(array);
 	ASSERT_VALID_BOUNDS(array, (int) index, (int) array->count);
 
-	return array->data + (index * array->element_size);
+	return (char*) array->data + (index * array->element_size);
 }
 
 int array_get_int(Array* array, size_t index) {
@@ -173,7 +173,7 @@ void* array_splice_get(ArraySplice* splice, size_t index) {
 	ASSERT_VALID_BOUNDS(splice, (int) (index), (int) splice->count);
 
 	size_t offset = ((splice->start + index) * splice->original->element_size);
-	return splice->original->data + offset;
+	return (char*) splice->original->data + offset;
 }
 
 int array_splice_get_int(ArraySplice* splice, size_t index) {
@@ -227,7 +227,9 @@ void _array_move_down(Array* array, size_t removed) {
     size_t elements_count = array->count - removed - 1;
     size_t start_offset = (removed + 1) * array->element_size;
     size_t dest_offset = removed * array->element_size;
-    memcpy(array->data + dest_offset, array->data + start_offset, elements_count * array->element_size);
+	char* src = (char*) array->data + start_offset;
+	char* dest = (char*) array->data + dest_offset;
+    memcpy(dest, src, elements_count * array->element_size);
 }
 
 
