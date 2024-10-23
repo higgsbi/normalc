@@ -1,4 +1,5 @@
 build/
+out/
 test/vgcore*
 *.out
 *.o

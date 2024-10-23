@@ -1,5 +1,7 @@
-cmake_minimum_required(VERSION 3.0)
+﻿cmake_minimum_required(VERSION 3.0)
 project(normalc)
+
+option(LOCAL_BUILD "Build library locally instead of to system" OFF)
 
 set(SOURCES 
 	src/string/string.c
@@ -32,13 +34,16 @@ set(HEADERS
 	src/collections/map/entry_set.h
 )
 
+if (LOCAL_BUILD)
+    set(CMAKE_INSTALL_PREFIX ${CMAKE_BINARY_DIR}/install)
+endif()
+
 add_library(normalc STATIC ${SOURCES} ${HEADERS})
 target_compile_options(normalc PRIVATE -Wall -Wextra -Wpedantic -Werror -Wno-unused-function)
 
-install(TARGETS ${PROJECT_NAME} DESTINATION /usr/local/lib)
-install(DIRECTORY "${CMAKE_SOURCE_DIR}/src/" 
-	DESTINATION "include/${PROJECT_NAME}" 
+install(TARGETS ${PROJECT_NAME} DESTINATION ${CMAKE_INSTALL_PREFIX}/lib
+		    PERMISSIONS OWNER_EXECUTE OWNER_WRITE OWNER_READ)
+install(DIRECTORY "${CMAKE_SOURCE_DIR}/src/" DESTINATION "${CMAKE_INSTALL_PREFIX}/include/${PROJECT_NAME}"
         FILES_MATCHING
         PATTERN "*.h"
-)
-
+				PERMISSIONS OWNER_EXECUTE OWNER_WRITE OWNER_READ)

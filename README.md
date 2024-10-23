@@ -1,38 +1,15 @@
-# Normalc
+﻿# Normalc
 
 ## Build
 
-The normalc standard library is only available as a static library
-For installation, CMake 3.0 is a prerequisite.
-You can install manually as follows:
+The normalc standard library is available as a static library for system and local installation.
+The local installation installs headers and libs to the `out` directory. 
+The system installation installs to `/usr/local` for unix systems and CMake's `CMAKE_INSTALL_PREFIX` for Windows.
 
-```bash
-git clone https://github.com/higgsbi/normalc/
-cd normalc
-mkdir build
-cd build
-cmake ..
-sudo make install
-```
+Local: `chmod +x install.sh && ./install.sh --local`
+System: `chmod +x install.sh && ./install.sh`
 
-For local installations without root permissions, cmake commands 
-should be alterted to pick a local prefix. You can edit the following script 
-for ease of use:
-
-```bash
-git clone https://github.com/higgsbi/normalc/
-cd normalc
-mkdir build
-cd build
-cmake -D CMAKE_INSTALL_PREFIX:PATH=(YOUR_PATH_HERE) ..
-make install
-```
-
-Or, you can use the simplified `install.sh` script in the root folder below:
-
-```bash
-/bin/bash -c "$(curl -fs https://raw.githubusercontent.com/higgsbi/normalc/main/install.sh)"
-```
+Note: Windows users can access this with [WSL](https://learn.microsoft.com/en-us/windows/wsl/install)
 
 ## Usage
 
