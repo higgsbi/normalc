@@ -10,7 +10,8 @@ elif [[ $1 == "--local" ]]; then
     mv install/ ../out
     cd ..
 else 
-    mkdir -p build
+    rm -rf build
+    mkdir build
     cd build
     cmake ..
     sudo make install
