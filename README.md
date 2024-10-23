@@ -6,8 +6,8 @@ The normalc standard library is available as a static library for system and loc
 The local installation installs headers and libs to the `out` directory. 
 The system installation installs to `/usr/local` for unix systems and CMake's `CMAKE_INSTALL_PREFIX` for Windows.
 
-Local: `chmod +x install.sh && ./install.sh --local`
-System: `chmod +x install.sh && ./install.sh`
+Local: `chmod +x install.sh && ./install.sh --local`  
+System: `chmod +x install.sh && ./install.sh`  
 
 Note: Windows users can access this with [WSL](https://learn.microsoft.com/en-us/windows/wsl/install)
 
