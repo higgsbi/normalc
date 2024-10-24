@@ -11,6 +11,9 @@ typedef struct {
 	String* url;	
 } Path;
 
+#define DEFAULT_PATH Path { NULL }
+OPTION_TYPE(Path, Path, path, DEFAULT_PATH);
+
 /**
  * Returns the current working directory with a trailing slash
  */

@@ -3,6 +3,7 @@
 
 #include <stdlib.h>
 #include "../error/error.h"
+#include "../safety/option.h"
 #include "../memory/memory.h"
 
 /**
@@ -17,6 +18,9 @@ typedef struct {
 	size_t element_size;
 } Array;
 
+#define DEFAULT_ARRAY Array { NULL, 0, 0, 0 }
+OPTION_TYPE(Array, Array, array, DEFAULT_ARRAY);
+
 /**
  * Array splices are references to windows within a Array.
  * This allows for reading of parts of an array without duplication.
@@ -26,6 +30,9 @@ typedef struct {
 	size_t start;
 	size_t count;	
 } ArraySplice;
+
+#define DEFAULT_ARRAY_SPLICE ArraySplice { NULL, 0, 0 }
+OPTION_TYPE(ArraySplice, ArraySplice, array_splice, DEFAULT_ARRAY_SPLICE);
 
 /**
  * Returns an array with each element being of size `element_size`.

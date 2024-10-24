@@ -13,6 +13,9 @@ typedef struct {
 	size_t length;	
 } String;
 
+#define DEFAULT_STRING String { NULL, 0 }
+OPTION_TYPE(String, String, string, DEFAULT_STRING);
+
 /**
  * Returns a new empty string
  */

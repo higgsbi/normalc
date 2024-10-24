@@ -2,6 +2,7 @@
 #define NORMALC_LINKED_LIST_H
 
 #include "../memory/memory.h"
+#include "../safety/option.h"
 #include <stdbool.h>
 #include <stdlib.h>
 
@@ -20,6 +21,9 @@ struct Node {
  */
 typedef struct Node Node;
 
+#define DEFAULT_NODE Node { NULL, NULL }
+OPTION_TYPE(Node, Node, node, DEFAULT_NODE);
+
 /**
  * LinkedList defines a singly linked list of nodes
  */
@@ -29,6 +33,9 @@ typedef struct {
 	Duplicator duplicator;
 	size_t count;
 } LinkedList;
+
+#define DEFAULT_LINKED_LIST LinkedList{ NULL, NULL, NULL, 0 }
+OPTION_TYPE(LinkedList, LinkedList, linked_list, DEFAULT_LINKED_LIST);
 
 /**
  * Crates a new node which takes ownership of the given element

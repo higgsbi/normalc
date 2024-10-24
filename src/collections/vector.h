@@ -3,6 +3,7 @@
 
 #include <stdlib.h>
 #include "../error/error.h"
+#include "../safety/option.h"
 #include "../memory/memory.h"
 
 /**
@@ -20,6 +21,9 @@ typedef struct {
 	Duplicator duplicator;
 } Vector;
 
+#define DEFAULT_VECTOR Vector { NULL, 0, 0, NULL, NULL }
+OPTION_TYPE(Vector, Vector, vector, DEFAULT_VECTOR);
+
 /**
  * Vector splices are references to windows within a Vector.
  * This allows for reading of parts of an array without duplication.
@@ -29,6 +33,9 @@ typedef struct {
 	size_t start;
 	size_t count;	
 } VectorSplice;
+
+#define DEFAULT_VECTOR_SPLICE VectorSplice { NULL, 0, 0 }
+OPTION_TYPE(VectorSplice, VectorSplice, vector_splice, DEFAULT_VECTOR_SPLICE);
 
 /**
  * Returns a new array with the given initial capacity.

@@ -2,11 +2,15 @@
 #define NORMALC_ENTRY_H
 
 #include "../../memory/memory.h"
+#include "../../safety/option.h"
 
 typedef struct {
 	void* key;
 	void* value;
 } Entry;
+
+#define DEFAULT_ENTRY Entry { NULL, NULL }
+OPTION_TYPE(Entry, Entry, entry, DEFAULT_ENTRY);
 
 Entry* entry_new(void* key, void* value);
 void entry_free(Entry* entry, Destructor key_destructor, Destructor value_destructor);

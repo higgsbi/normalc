@@ -3,6 +3,7 @@
 
 #include <stdlib.h>
 #include "../error/error.h"
+#include "../safety/option.h"
 #include "string.h"
 
 /**
@@ -12,6 +13,9 @@ typedef struct {
 	char* buffer;
 	size_t length;
 } StringBuilder;
+
+#define DEFAULT_STRING_BUILDER StringBuilder { NULL, 0 }
+OPTION_TYPE(StringBuilder, StringBuilder, string_builder, DEFAULT_STRING_BUILDER);
 
 StringBuilder* string_builder_new();
 StringBuilder* string_builder_from(char* buffer);
