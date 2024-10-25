@@ -44,8 +44,8 @@ typedef struct {
 	Duplicator value_duplicator;
 } Map;
 
-#define DEFAULT_MAP Map { NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL }
-OPTION_TYPE(Map, Map, map, DEFAULT_MAP);
+#define DEFAULT_MAP { NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL }
+OPTION_TYPE(Map, Map, map, DEFAULT_MAP)
 
 /**
  * Map splice defines a vector of non-null Entry's with 
@@ -57,8 +57,8 @@ typedef struct {
 	size_t count;
 } MapSplice;
 
-#define DEFAULT_MAP_SPLICE MapSplice { NULL, NULL, 0 }
-OPTION_TYPE(MapSplice, MapSplice, map_splice, DEFAULT_MAP_SPLICE);
+#define DEFAULT_MAP_SPLICE { NULL, NULL, 0 }
+OPTION_TYPE(MapSplice, MapSplice, map_splice, DEFAULT_MAP_SPLICE)
 
 /**
  * Creates a new map with a given initial capacity.

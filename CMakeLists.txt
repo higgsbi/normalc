@@ -32,6 +32,7 @@ set(HEADERS
 	src/collections/map.h
 	src/collections/map/entry.h
 	src/collections/map/entry_set.h
+	src/safety/option.h
 )
 
 if (LOCAL_BUILD)
@@ -41,9 +42,7 @@ endif()
 add_library(normalc STATIC ${SOURCES} ${HEADERS})
 target_compile_options(normalc PRIVATE -Wall -Wextra -Wpedantic -Werror -Wno-unused-function)
 
-install(TARGETS ${PROJECT_NAME} DESTINATION ${CMAKE_INSTALL_PREFIX}/lib
-		    PERMISSIONS OWNER_EXECUTE OWNER_WRITE OWNER_READ)
+install(TARGETS ${PROJECT_NAME} DESTINATION ${CMAKE_INSTALL_PREFIX}/lib)
 install(DIRECTORY "${CMAKE_SOURCE_DIR}/src/" DESTINATION "${CMAKE_INSTALL_PREFIX}/include/${PROJECT_NAME}"
         FILES_MATCHING
-        PATTERN "*.h"
-				PERMISSIONS OWNER_EXECUTE OWNER_WRITE OWNER_READ)
+        PATTERN "*.h")

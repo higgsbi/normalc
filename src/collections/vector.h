@@ -21,8 +21,8 @@ typedef struct {
 	Duplicator duplicator;
 } Vector;
 
-#define DEFAULT_VECTOR Vector { NULL, 0, 0, NULL, NULL }
-OPTION_TYPE(Vector, Vector, vector, DEFAULT_VECTOR);
+#define DEFAULT_VECTOR { NULL, 0, 0, NULL, NULL }
+OPTION_TYPE(Vector, Vector, vector, DEFAULT_VECTOR)
 
 /**
  * Vector splices are references to windows within a Vector.
@@ -34,8 +34,8 @@ typedef struct {
 	size_t count;	
 } VectorSplice;
 
-#define DEFAULT_VECTOR_SPLICE VectorSplice { NULL, 0, 0 }
-OPTION_TYPE(VectorSplice, VectorSplice, vector_splice, DEFAULT_VECTOR_SPLICE);
+#define DEFAULT_VECTOR_SPLICE { NULL, 0, 0 }
+OPTION_TYPE(VectorSplice, VectorSplice, vector_splice, DEFAULT_VECTOR_SPLICE)
 
 /**
  * Returns a new array with the given initial capacity.

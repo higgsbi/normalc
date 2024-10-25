@@ -14,9 +14,12 @@ typedef struct {
 	size_t length;
 } StringBuilder;
 
-#define DEFAULT_STRING_BUILDER StringBuilder { NULL, 0 }
-OPTION_TYPE(StringBuilder, StringBuilder, string_builder, DEFAULT_STRING_BUILDER);
+#define DEFAULT_STRING_BUILDER { NULL, 0 }
+OPTION_TYPE(StringBuilder, StringBuilder, string_builder, DEFAULT_STRING_BUILDER)
 
+/**
+ * Constructs a new heap allocated string builder
+ */
 StringBuilder* string_builder_new();
 StringBuilder* string_builder_from(char* buffer);
 StringBuilder* string_builder_clone(StringBuilder* src);

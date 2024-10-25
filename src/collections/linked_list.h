@@ -21,8 +21,8 @@ struct Node {
  */
 typedef struct Node Node;
 
-#define DEFAULT_NODE Node { NULL, NULL }
-OPTION_TYPE(Node, Node, node, DEFAULT_NODE);
+#define DEFAULT_NODE { NULL, NULL }
+OPTION_TYPE(Node, Node, node, DEFAULT_NODE)
 
 /**
  * LinkedList defines a singly linked list of nodes
@@ -34,8 +34,8 @@ typedef struct {
 	size_t count;
 } LinkedList;
 
-#define DEFAULT_LINKED_LIST LinkedList{ NULL, NULL, NULL, 0 }
-OPTION_TYPE(LinkedList, LinkedList, linked_list, DEFAULT_LINKED_LIST);
+#define DEFAULT_LINKED_LIST { NULL, NULL, NULL, 0 }
+OPTION_TYPE(LinkedList, LinkedList, linked_list, DEFAULT_LINKED_LIST)
 
 /**
  * Crates a new node which takes ownership of the given element

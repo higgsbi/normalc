@@ -2,6 +2,8 @@
 #define NORMALC_OPTION_H
 
 #include "stdbool.h"
+#include "stdio.h"
+#include "stdlib.h"
 
 /**
  * Defines an option type for the given type with attached helper functions
@@ -23,30 +25,34 @@
  */
 #define OPTION_TYPE(type, type_name, func_name, default_value) \
     typedef struct { type value; bool present; } Option##type_name; \
-    inline Option##type_name option_##func_name(type value) { \
-        return Option##type_name { value, true }; \
+    static inline Option##type_name option_##func_name(type value) { \
+        return (Option##type_name) { value, true }; \
     } \
-    inline Option##type_name option_##func_name##_empty() { \
-        return Option##type_name { default_value, false }; \
+    static inline Option##type_name option_##func_name##_empty() { \
+        return (Option##type_name) { default_value, false }; \
     } \
-    inline bool option_##func_name##_present(Option##type_name value) { \
+    static inline bool option_##func_name##_is_present(Option##type_name value) { \
         return value.present; \
     } \
-    inline bool option_##func_name##_empty(Option##type_name value) { \
+    static inline bool option_##func_name##_is_empty(Option##type_name value) { \
         return !value.present; \
     } \
-    inline type option_##func_name##_get_or(Option##type_name value, type other) { \
+    static inline type option_##func_name##_get_or(Option##type_name value, type other) { \
         return value.present ? value.value : other; \
     } \
-    inline type option_##func_name##_get_or_default(Option##type_name option) { \
-        return option.present ? option.value : default_value; \
-    } \
+    static inline type option_##func_name##_get(Option##type_name value) { \
+        if (!value.present) { \
+    		printf("\nOPTION GET ERROR: attempted to unwrap option of type %s, but value was not present!\n", #type);\
+    		exit(EXIT_FAILURE); \
+        }\
+        return value.value; \
+    }
 
-OPTION_TYPE(int, Int, int, 0);
-OPTION_TYPE(long, Long, long, 0L);
-OPTION_TYPE(float, Float, float, 0.0F);
-OPTION_TYPE(double, Double, double, 0.0);
-OPTION_TYPE(char, Char, char, '\0');
-OPTION_TYPE(bool, Bool, bool, false);
+OPTION_TYPE(int, Int, int, 0)
+OPTION_TYPE(long, Long, long, 0L)
+OPTION_TYPE(float, Float, float, 0.0F)
+OPTION_TYPE(double, Double, double, 0.0)
+OPTION_TYPE(char, Char, char, '\0')
+OPTION_TYPE(bool, Bool, bool, false)
 
 #endif

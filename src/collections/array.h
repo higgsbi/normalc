@@ -18,8 +18,8 @@ typedef struct {
 	size_t element_size;
 } Array;
 
-#define DEFAULT_ARRAY Array { NULL, 0, 0, 0 }
-OPTION_TYPE(Array, Array, array, DEFAULT_ARRAY);
+#define DEFAULT_ARRAY { NULL, 0, 0, 0 }
+OPTION_TYPE(Array, Array, array, DEFAULT_ARRAY)
 
 /**
  * Array splices are references to windows within a Array.
@@ -31,8 +31,8 @@ typedef struct {
 	size_t count;	
 } ArraySplice;
 
-#define DEFAULT_ARRAY_SPLICE ArraySplice { NULL, 0, 0 }
-OPTION_TYPE(ArraySplice, ArraySplice, array_splice, DEFAULT_ARRAY_SPLICE);
+#define DEFAULT_ARRAY_SPLICE { NULL, 0, 0 }
+OPTION_TYPE(ArraySplice, ArraySplice, array_splice, DEFAULT_ARRAY_SPLICE)
 
 /**
  * Returns an array with each element being of size `element_size`.
