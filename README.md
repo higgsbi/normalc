@@ -31,7 +31,7 @@ void test()  {
     // automatically casted from void*
     // (-) simple, no extra code, no macros
     // (-) no type safety
-		vector_add(vector, string_from_format("foo %s", "bar"));	
+    vector_add(vector, string_from_format("foo %s", "bar"));	
     string_println(vector_get(vector, 0));
 
     vector_free(vector);
@@ -50,10 +50,10 @@ void test() {
 		);
 
     // (+) just as simple, no extra code no macros
-    // (+) type safety 
+    // (+) type safety
     vector_add_string(vector, string_from_format("foo %s", "bar"));
     string_println(vector_get_string(vector, 0));
-
+    
     // Fails at compile time with invalid types
     // vector_add_string(vector, 10) 
 
