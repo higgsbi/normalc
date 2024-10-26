@@ -7,7 +7,7 @@
 #include "../memory/memory.h"
 
 /**
- * Vector defines a collection of heap allocated opaque pointers with a default duplicator 
+ * Vector defines a collection of heap allocated void pointers with a default duplicator 
  * and destructor method to allow for easy memory management.
  *
  * As opposed to the Array type, vectors should be used for complex objects that require

@@ -21,7 +21,7 @@
 #endif
 
 /**
- * Map defines a hash map with a dynamically allocated opaque pointer
+ * Map defines a hash map with a dynamically allocated void pointer
  * for both key and value types. Destructors, duplicators, comparators,
  * and hashers must be used to allow for the map to allocate, deallocate
  * and compare data at will. 
@@ -46,6 +46,36 @@ typedef struct {
 
 #define DEFAULT_MAP { NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL }
 OPTION_TYPE(Map, Map, map, DEFAULT_MAP)
+
+
+/**
+ * Defines type safe functions for the Map, EntrySet, and Entry type
+ */
+#define MAP_SAFE(key_type, value_type, type_name) \
+    static inline value_type* map_get_value_##type_name(Map* map, key_type* key, bool discard_key) { \
+        return (value_type*) map_get_value(map, (void*) key, discard_key); \
+    } \
+    static inline Entry* map_get_entry_##type_name(Map* map, key_type* key, bool discard_key) { \
+        return map_get_entry(map, (void*) key, discard_key); \
+    } \
+    static inline Entry* map_remove_##type_name(Map* map, key_type* key, bool discard_key) { \
+        return map_remove(map, (void*) key, discard_key); \
+    } \
+    static inline void map_delete_##type_name(Map* map, key_type* key, bool discard_key) { \
+        map_delete(map, (void*) key, discard_key); \
+    } \
+    static inline void map_insert_##type_name(Map* map, key_type* key, value_type* value) { \
+        map_insert(map, (void*) key, (void*) value); \
+    } \
+    static inline void entry_set_add_##type_name(EntrySet* entries, key_type* element) { \
+        entry_set_add(entries, (void*) element); \
+    } \
+    static inline Entry* entry_new_##type_name(key_type* key, value_type* value) { \
+        return entry_new((void*) key, (void*) value); \
+    } \
+    static inline value_type* map_splice_get_value_##type_name(MapSplice* splice, size_t index) { \
+        return (value_type*) map_splice_get_value(splice, index); \
+    } \
 
 /**
  * Map splice defines a vector of non-null Entry's with 
@@ -130,12 +160,12 @@ MapSplice* map_splice_new(Map* map);
 /**
  * Returns the entry at the given index for this splice. This is guaranteed to be non-null.
  */
-Entry* splice_get_entry(MapSplice* splice, size_t index);
+Entry* map_splice_get_entry(MapSplice* splice, size_t index);
 
 /**
  * Returns the value at the given index for this splice. This is guaranteed to be non-null.
  */
-Entry* splice_get_value(MapSplice* splice, size_t index);
+void* map_splice_get_value(MapSplice* splice, size_t index);
 
 /**
  * Frees the map splice. Does not impact the referenced map.

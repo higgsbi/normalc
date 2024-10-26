@@ -7,7 +7,7 @@
 #include <stdlib.h>
 
 /**
- * Node defines a heap allocated opaque pointer element and a link
+ * Node defines a heap allocated void pointer element and a link
  * to another node used in a LinkedList
  */
 struct Node {
@@ -37,6 +37,14 @@ typedef struct {
 #define DEFAULT_LINKED_LIST { NULL, NULL, NULL, 0 }
 OPTION_TYPE(LinkedList, LinkedList, linked_list, DEFAULT_LINKED_LIST)
 
+/**
+ * Defines type safe functions for the LinkedList type
+ */
+#define LINKED_LIST_SAFE(type, type_name) \
+    static inline Node* linked_node_new_##type_name(type* element, Node* next) { \
+        linked_node_new((void*) element, next); \
+    } \
+    
 /**
  * Crates a new node which takes ownership of the given element
  */

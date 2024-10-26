@@ -239,15 +239,15 @@ void map_splice_free(MapSplice* splice) {
 	free(splice);
 }
 
-Entry* splice_get_entry(MapSplice* splice, size_t index) {
+Entry* map_splice_get_entry(MapSplice* splice, size_t index) {
 	ASSERT_NONNULL(splice);	
 	ASSERT_VALID_BOUNDS(splice, (int) index, (int) splice->count);
 
 	return vector_get(splice->entries, index);
 }
 
-Entry* splice_get_value(MapSplice* splice, size_t index) {
-	return splice_get_entry(splice, index)->value;
+void* map_splice_get_value(MapSplice* splice, size_t index) {
+	return map_splice_get_entry(splice, index)->value;
 }
 
 

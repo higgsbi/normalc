@@ -7,9 +7,13 @@
 #include "../memory/memory.h"
 
 /**
- * Array defines a collection of opaque pointers to some generic data type. 
+ * Array defines a collection of void pointers to some generic data type. 
  * Unlike Vector, array's do not support heap allocated objects and assumes
  * every value is the same size
+ * 
+ * Unlike other data structures, this comes with automatic safe types for primitive 
+ * types for ease of access
+ * 
  */
 typedef struct {
 	void* data;
