@@ -11,11 +11,62 @@ System: `chmod +x install.sh && ./install.sh`
 
 Note: Windows users can access this with [WSL](https://learn.microsoft.com/en-us/windows/wsl/install)
 
+## Type Safety
+
+Normalc aims to allow for flexibility in data structures by using void pointers. However,
+this results in tiresome casting and the removal of reasonable type safety. To remedy, each
+data type can opt in to type safety with a simple 1 line macro. Here's an example with strings
+in a vector:
+
+#### Flexible
+```C
+    void test()  {
+        // (+) vector creation without complicated macros
+        Vector* vector = vector_new(
+    				1, 
+    				(Duplicator) string_clone, 
+    				(Destructor) string_free
+    		);
+
+        // automatically casted from void*
+        // (-) simple, no extra code, no macros
+        // (-) no type safety
+    		vector_add(vector, string_from_format("foo %s", "bar"));	
+        string_println(vector_get(vector, 0));
+
+        vector_free(vector);
+    }
+```
+
+#### Type Safe
+```C
+    VECTOR_SAFE(String, string)
+
+    void test() {
+        Vector* vector = vector_new(
+    				1, 
+    				(Duplicator) string_clone, 
+    				(Destructor) string_free
+    		);
+
+        // (+) just as simple, no extra code no macros
+        // (+) type safety 
+        vector_add_string(vector, string_from_format("foo %s", "bar"));
+        string_println(vector_get_string(vector, 0));
+
+        // Fails at compile time with invalid types
+        // vector_add_string(vector, 10) 
+
+        vector_free(vector);
+    }
+```
+
+
 ## Usage
 
 All standard headers are prefixed with `normalc/` so using a string would be
 `normalc/string/string.h`. This allows for pseudo namespacing at the
-preprocessor level. For examples, see the "Tests" header.
+preprocessor level. For examples, see the "test" directory.
 
 ## Tests
 
