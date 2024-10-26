@@ -20,45 +20,45 @@ in a vector:
 
 #### Flexible
 ```C
-    void test()  {
-        // (+) vector creation without complicated macros
-        Vector* vector = vector_new(
-    				1, 
-    				(Duplicator) string_clone, 
-    				(Destructor) string_free
-    		);
+void test()  {
+    // (+) vector creation without complicated macros
+    Vector* vector = vector_new(
+				1, 
+				(Duplicator) string_clone, 
+				(Destructor) string_free
+		);
 
-        // automatically casted from void*
-        // (-) simple, no extra code, no macros
-        // (-) no type safety
-    		vector_add(vector, string_from_format("foo %s", "bar"));	
-        string_println(vector_get(vector, 0));
+    // automatically casted from void*
+    // (-) simple, no extra code, no macros
+    // (-) no type safety
+		vector_add(vector, string_from_format("foo %s", "bar"));	
+    string_println(vector_get(vector, 0));
 
-        vector_free(vector);
-    }
+    vector_free(vector);
+}
 ```
 
 #### Type Safe
 ```C
-    VECTOR_SAFE(String, string)
+VECTOR_SAFE(String, string)
 
-    void test() {
-        Vector* vector = vector_new(
-    				1, 
-    				(Duplicator) string_clone, 
-    				(Destructor) string_free
-    		);
+void test() {
+    Vector* vector = vector_new(
+				1, 
+				(Duplicator) string_clone, 
+				(Destructor) string_free
+		);
 
-        // (+) just as simple, no extra code no macros
-        // (+) type safety 
-        vector_add_string(vector, string_from_format("foo %s", "bar"));
-        string_println(vector_get_string(vector, 0));
+    // (+) just as simple, no extra code no macros
+    // (+) type safety 
+    vector_add_string(vector, string_from_format("foo %s", "bar"));
+    string_println(vector_get_string(vector, 0));
 
-        // Fails at compile time with invalid types
-        // vector_add_string(vector, 10) 
+    // Fails at compile time with invalid types
+    // vector_add_string(vector, 10) 
 
-        vector_free(vector);
-    }
+    vector_free(vector);
+}
 ```
 
 
