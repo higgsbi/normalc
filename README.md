@@ -1,5 +1,15 @@
 ﻿# Normalc
 
+Normalc is a C base layer library with strings, IO, data structures, option types, error types, and optional builtin type safety.
+This library was created for me to use C for my personal projects with language niceties I have grown used to from
+higher level languages. Generally, this library is designed to be as simple as possible with clear instruction.
+With that in mind, macros are used solely for function generation that add optional safety, instead of obscuring logic.
+Additionally, many simple addons such as having automatic freeing/cloning/hashing with function pointers is used heavily with data
+structures which are enabled by initialization via constructor-like functions and disposal with simple destructor-like functions.  
+
+This was not designed to be a cross-platform library, however much of the code base has been tested on multiple platforms thus
+has portability as an after thought.
+
 ## Build
 
 The normalc standard library is available as a static library for system and local installation.
@@ -71,14 +81,16 @@ preprocessor level. For examples, see the "test" directory.
 ## Tests
 
 To run a test, run the `test.sh` in the test folder with the first argument
-being the name of the test you want to run.
+being the source file of the test you want to run.
 
 ## Style
 
 - Headers in the normalc src directory should use relative paths (e.g., `../string/string.h`)
-- Structs, enums, and unions are capitalized camel case
-- Variables and functions are lower snake case
+- Structs, enums, and unions are capitalized camel case (e.g., `struct FooBar`)
+- Variables and functions are lower snake case (e.g., `foo_bar()` and `int foo_bar`)
 - Structs use `typedef` to reduce code length, regardless of reduced transparency
 - Any function that would break control flow (e.g., invalid null pointers) should use an assert statement like `ASSERT_NONULL` 
-- Object functions should start with their object name (e.g., `string_new()`)
+- Object functions use a noun_verb nomenclature (e.g., `string_new()`)
+- Macros should be minimally used, and preferably only for easy to understand function generation
+
 
