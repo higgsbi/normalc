@@ -23,9 +23,9 @@ in a vector:
 void test()  {
     // (+) vector creation without complicated macros
     Vector* vector = vector_new(
-				1, 
-				(Duplicator) string_clone, 
-				(Destructor) string_free
+		  1, 
+		  (Duplicator) string_clone, 
+		  (Destructor) string_free
 		);
 
     // automatically casted from void*
@@ -44,9 +44,9 @@ VECTOR_SAFE(String, string)
 
 void test() {
     Vector* vector = vector_new(
-				1, 
-				(Duplicator) string_clone, 
-				(Destructor) string_free
+		  1, 
+		  (Duplicator) string_clone, 
+		  (Destructor) string_free
 		);
 
     // (+) just as simple, no extra code no macros
