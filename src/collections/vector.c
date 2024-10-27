@@ -100,6 +100,9 @@ void* vector_remove(Vector* vector, size_t index) {
 	return value;
 }
 
+void vector_sort(Vector* vector, Comparator comparator) {
+	qsort(vector->data, vector->count, sizeof(void*), comparator);
+}
 
 void vector_delete(Vector* vector, size_t index) {
 	void* value = vector_remove(vector, index); 

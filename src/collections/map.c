@@ -14,7 +14,7 @@ size_t _map_index_from_hash(Map* map, size_t hash);
 Map* map_new(
 		size_t initial_capacity,
 		Hasher key_hasher,
-		Comparator key_comparator,
+		EqualityChecker key_comparator,
 		Destructor key_destructor,
 		Destructor value_destructor,
 		Duplicator key_duplicator,

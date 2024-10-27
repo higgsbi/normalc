@@ -157,6 +157,13 @@ bool string_equals_string(String* string, String* other);
 bool string_equals_string_ignore_case(String* string, String* other);
 
 /**
+ * Returns 0 if string == other, negative if string is < other, positive if other > string
+ *
+ * Note: this uses unsafe void pointers to match the signature of stdlib's `qsort()` function
+ */
+int string_compare(const void* string, const void* other);
+
+/**
  * Prints the given string's buffer terimnated with a new line
  */
 void string_print(String* string);

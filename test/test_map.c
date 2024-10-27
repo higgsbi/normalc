@@ -24,7 +24,7 @@ void test_safety() {
 	Map* map = map_new(
 			2,
 			(Hasher) string_hash,
-			(Comparator) string_equals_string_ignore_case,
+			(EqualityChecker) string_equals_string_ignore_case,
 			(Destructor) string_free, 
 			(Destructor) string_free, 
 			(Duplicator) string_clone, 
@@ -48,7 +48,7 @@ void test_removal() {
 	Map* map = map_new(
 				15,
 				(Hasher) string_hash,
-				(Comparator) string_equals_string_ignore_case,
+				(EqualityChecker) string_equals_string_ignore_case,
 				(Destructor) string_free, 
 				(Destructor) string_free, 
 				(Duplicator) string_clone, 
@@ -82,7 +82,7 @@ void test_complex_values() {
 	Map* map = map_new(
 				10,
 				(Hasher) string_hash,
-				(Comparator) string_equals_string_ignore_case,
+				(EqualityChecker) string_equals_string_ignore_case,
 				(Destructor) string_free, 
 				(Destructor) vector_free, 
 				(Duplicator) string_free, 
@@ -118,7 +118,7 @@ void test_memory() {
 	Map* map = map_new(
 				0,
 				(Hasher) string_hash,
-				(Comparator) string_equals_ignore_case,
+				(EqualityChecker) string_equals_ignore_case,
 				(Destructor) string_free, 
 				(Destructor) string_free, 
 				(Duplicator)string_clone, 

@@ -312,6 +312,16 @@ bool string_equals_string_ignore_case(String* src, String* other) {
 	return string_equals_ignore_case(src, other->buffer);
 }
 
+int string_compare(const void* string, const void* other) {
+	ASSERT_NONNULL(string);
+	ASSERT_NONNULL(other);
+
+	String *string_a = *(String**) string;
+	String *string_b = *(String**) other;
+	
+	return strcmp(string_a->buffer, string_b->buffer);
+}
+
 void string_print(String* string) {
 	printf("%s", string->buffer);
 }

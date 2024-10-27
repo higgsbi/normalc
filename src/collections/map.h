@@ -37,7 +37,7 @@ typedef struct {
 	EntrySet* entries;
 	size_t entry_count;
 	Hasher key_hasher;
-	Comparator key_comparator;
+	EqualityChecker key_comparator;
 	Destructor key_destructor;
 	Duplicator key_duplicator;
 	Destructor value_destructor;
@@ -101,7 +101,7 @@ OPTION_TYPE(MapSplice, MapSplice, map_splice, DEFAULT_MAP_SPLICE)
 Map* map_new(
 		size_t initial_capacity,
 		Hasher hasher,
-		Comparator key_comparator,
+		EqualityChecker key_comparator,
 		Destructor key_destructor,
 		Destructor value_destructor,
 		Duplicator key_duplicator,

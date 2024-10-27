@@ -34,7 +34,7 @@ typedef struct {
     static inline type* vector_##type_name##_get_clone(Vector* vector, size_t index) { \
         return (type*) vector_get_clone(vector, index); \
     } \
-    static inline type* vector##type_name##_remove(Vector* vector, size_t index) { \
+    static inline type* vector_##type_name##_remove(Vector* vector, size_t index) { \
         return (type*) vector_remove(vector, index); \
     } \
     static inline void vector_##type_name##_set(Vector* vector, size_t index, type* element) { \
@@ -46,7 +46,7 @@ typedef struct {
     static inline void vector_##type_name##_set_clone(Vector* vector, size_t index, type* element) { \
         vector_set_clone(vector, index, (void*) element); \
     } \
-    static inline type* vector_##type_name##_splice_get(VectorSplice* splice, size_t index) { \
+    static inline type* vector_splice_##type_name##_get(VectorSplice* splice, size_t index) { \
         return (type*) vector_splice_get(splice, index); \
     } \
 
@@ -130,6 +130,12 @@ void vector_set_clone(Vector* vector, size_t index, void* element);
  * freeing the original variable.
  */
 void* vector_get_clone(Vector* vector, size_t index);
+
+/**
+ * Sorts the vector via stdlib's qsort with the supplied comparator
+ */
+void vector_sort(Vector* vector, Comparator comparator);
+ // qsort(progress->data, progress->count, sizeof(Exercise*), exercise_compare);
 
 /**
  * Removes the element from the vector at the given index and frees it.

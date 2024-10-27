@@ -25,7 +25,12 @@ typedef size_t (*Hasher) (void*);
  * Comparator defines a function that takes in two opaque pointers of the same time and
  * returns true if same, and false if different
  */
-typedef bool (*Comparator) (void*, void*);
+typedef bool (*EqualityChecker) (void*, void*);
+
+/**
+ * Returns 0 if args are equal, negative if arg1 < arg2, positive if arg1 > arg2
+ */
+typedef int (*Comparator) (const void*, const void*);
 
 /**
  * Empty duplicator to be used in data structures which should not duplicate any value on clone
