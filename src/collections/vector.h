@@ -25,28 +25,28 @@ typedef struct {
  * Defines type safe functions for the Vector and VectorSplice type
  */
 #define VECTOR_SAFE(type, type_name) \
-    static inline void vector_add_##type_name(Vector* vector, type* element) { \
+    static inline void vector_##type_name##_add(Vector* vector, type* element) { \
         vector_add(vector, (void*) element); \
     } \
-    static inline type* vector_get_##type_name(Vector* vector, size_t index) { \
+    static inline type* vector_##type_name##_get(Vector* vector, size_t index) { \
         return (type*) vector_get(vector, index); \
     } \
-    static inline type* vector_get_clone_##type_name(Vector* vector, size_t index) { \
+    static inline type* vector_##type_name##_get_clone(Vector* vector, size_t index) { \
         return (type*) vector_get_clone(vector, index); \
     } \
-    static inline type* vector_remove##type_name(Vector* vector, size_t index) { \
+    static inline type* vector##type_name##_remove(Vector* vector, size_t index) { \
         return (type*) vector_remove(vector, index); \
     } \
-    static inline void vector_set##type_name(Vector* vector, size_t index, type* element) { \
+    static inline void vector_##type_name##_set(Vector* vector, size_t index, type* element) { \
         vector_set(vector, index, (void*) element); \
     } \
-    static inline void vector_add_clone##type_name(Vector* vector, type* element) { \
+    static inline void vector_##type_name##_add_clone(Vector* vector, type* element) { \
         vector_add_clone(vector, (void*) element); \
     } \
-    static inline void vector_set_clone##type_name(Vector* vector, size_t index, type* element) { \
+    static inline void vector_##type_name##_set_clone(Vector* vector, size_t index, type* element) { \
         vector_set_clone(vector, index, (void*) element); \
     } \
-    static inline type* vector_splice_get##type_name(VectorSplice* splice, size_t index) { \
+    static inline type* vector_##type_name##_splice_get(VectorSplice* splice, size_t index) { \
         return (type*) vector_splice_get(splice, index); \
     } \
 

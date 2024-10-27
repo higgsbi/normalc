@@ -52,28 +52,28 @@ OPTION_TYPE(Map, Map, map, DEFAULT_MAP)
  * Defines type safe functions for the Map, EntrySet, and Entry type
  */
 #define MAP_SAFE(key_type, value_type, type_name) \
-    static inline value_type* map_get_value_##type_name(Map* map, key_type* key, bool discard_key) { \
+    static inline value_type* map_##type_name##g_et_value(Map* map, key_type* key, bool discard_key) { \
         return (value_type*) map_get_value(map, (void*) key, discard_key); \
     } \
-    static inline Entry* map_get_entry_##type_name(Map* map, key_type* key, bool discard_key) { \
+    static inline Entry* map_##type_name##_get_entry(Map* map, key_type* key, bool discard_key) { \
         return map_get_entry(map, (void*) key, discard_key); \
     } \
-    static inline Entry* map_remove_##type_name(Map* map, key_type* key, bool discard_key) { \
+    static inline Entry* map_##type_name##_remove(Map* map, key_type* key, bool discard_key) { \
         return map_remove(map, (void*) key, discard_key); \
     } \
-    static inline void map_delete_##type_name(Map* map, key_type* key, bool discard_key) { \
+    static inline void map_##type_name##_delete(Map* map, key_type* key, bool discard_key) { \
         map_delete(map, (void*) key, discard_key); \
     } \
-    static inline void map_insert_##type_name(Map* map, key_type* key, value_type* value) { \
+    static inline void map_##type_name##_insert(Map* map, key_type* key, value_type* value) { \
         map_insert(map, (void*) key, (void*) value); \
     } \
-    static inline void entry_set_add_##type_name(EntrySet* entries, key_type* element) { \
+    static inline void entry_set_##type_name##_add(EntrySet* entries, key_type* element) { \
         entry_set_add(entries, (void*) element); \
     } \
-    static inline Entry* entry_new_##type_name(key_type* key, value_type* value) { \
+    static inline Entry* entry_##type_name##_new(key_type* key, value_type* value) { \
         return entry_new((void*) key, (void*) value); \
     } \
-    static inline value_type* map_splice_get_value_##type_name(MapSplice* splice, size_t index) { \
+    static inline value_type* map_splice_##type_name##_get_value(MapSplice* splice, size_t index) { \
         return (value_type*) map_splice_get_value(splice, index); \
     } \
 

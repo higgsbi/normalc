@@ -31,13 +31,13 @@ void test_safety() {
 			(Duplicator) string_clone
 		);
 
-	map_insert_string(map, string_from("Safe Key 1"), string_from("Safe Value 1"));
-	map_insert_string(map, string_from("Safe Key 2"), string_from("Safe Value 2"));
+	map_string_insert(map, string_from("Safe Key 1"), string_from("Safe Value 1"));
+	map_string_insert(map, string_from("Safe Key 2"), string_from("Safe Value 2"));
 
 	MapSplice* splice = map_splice_new(map);
 
 	for (size_t i = 0; i < splice->count; i++) {
-		string_println(map_splice_get_value_string(splice, i));
+		string_println(map_splice_string_get_value(splice, i));
 	}
 	
 	map_splice_free(splice);
