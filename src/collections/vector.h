@@ -2,7 +2,6 @@
 #define NORMALC_VECTOR_H
 
 #include <stdlib.h>
-#include "../error/error.h"
 #include "../safety/option.h"
 #include "../memory/memory.h"
 
@@ -50,8 +49,7 @@ typedef struct {
         return (type*) vector_splice_get(splice, index); \
     } \
 
-#define DEFAULT_VECTOR { NULL, 0, 0, NULL, NULL }
-OPTION_TYPE(Vector, Vector, vector, DEFAULT_VECTOR)
+OPTION_TYPE(Vector*, Vector, vector, NULL)
 
 /**
  * Vector splices are references to windows within a Vector.
@@ -63,8 +61,7 @@ typedef struct {
 	size_t count;	
 } VectorSplice;
 
-#define DEFAULT_VECTOR_SPLICE { NULL, 0, 0 }
-OPTION_TYPE(VectorSplice, VectorSplice, vector_splice, DEFAULT_VECTOR_SPLICE)
+OPTION_TYPE(VectorSplice*, VectorSplice, vector_splice, NULL)
 
 /**
  * Returns a new array with the given initial capacity.

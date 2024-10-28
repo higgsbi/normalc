@@ -21,8 +21,7 @@ struct Node {
  */
 typedef struct Node Node;
 
-#define DEFAULT_NODE { NULL, NULL }
-OPTION_TYPE(Node, Node, node, DEFAULT_NODE)
+OPTION_TYPE(Node*, Node, node, NULL)
 
 /**
  * LinkedList defines a singly linked list of nodes
@@ -34,8 +33,7 @@ typedef struct {
 	size_t count;
 } LinkedList;
 
-#define DEFAULT_LINKED_LIST { NULL, NULL, NULL, 0 }
-OPTION_TYPE(LinkedList, LinkedList, linked_list, DEFAULT_LINKED_LIST)
+OPTION_TYPE(LinkedList*, LinkedList, linked_list, NULL)
 
 /**
  * Defines type safe functions for the LinkedList type

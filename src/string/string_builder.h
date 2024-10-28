@@ -14,8 +14,7 @@ typedef struct {
 	size_t length;
 } StringBuilder;
 
-#define DEFAULT_STRING_BUILDER { NULL, 0 }
-OPTION_TYPE(StringBuilder, StringBuilder, string_builder, DEFAULT_STRING_BUILDER)
+OPTION_TYPE(StringBuilder*, StringBuilder, string_builder, NULL)
 
 /**
  * Constructs a new heap allocated string builder

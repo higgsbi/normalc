@@ -22,8 +22,7 @@ typedef struct {
 	size_t element_size;
 } Array;
 
-#define DEFAULT_ARRAY { NULL, 0, 0, 0 }
-OPTION_TYPE(Array, Array, array, DEFAULT_ARRAY)
+OPTION_TYPE(Array*, Array, array, NULL)
 
 /**
  * Array splices are references to windows within a Array.

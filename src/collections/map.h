@@ -87,8 +87,7 @@ typedef struct {
 	size_t count;
 } MapSplice;
 
-#define DEFAULT_MAP_SPLICE { NULL, NULL, 0 }
-OPTION_TYPE(MapSplice, MapSplice, map_splice, DEFAULT_MAP_SPLICE)
+OPTION_TYPE(MapSplice*, MapSplice, map_splice, NULL)
 
 /**
  * Creates a new map with a given initial capacity.

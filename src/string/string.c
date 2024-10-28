@@ -1,5 +1,6 @@
 #include "string.h"
 #include "../memory/memory.h"
+#include "../error/error.h"
 #include "string_builder.h"
 #include <stdarg.h>
 #include <stdlib.h>

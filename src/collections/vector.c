@@ -1,5 +1,6 @@
 #include "vector.h"
 #include "../memory/memory.h"
+#include "../error/error.h"
 
 void _vector_try_expand(Vector* vector);
 void _vector_move_down(Vector* vector, size_t removed);

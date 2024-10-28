@@ -21,8 +21,7 @@ typedef struct {
 	size_t capacity;
 } EntrySet;
 
-#define DEFAULT_ENTRY_SET { NULL, 0, 0 }
-OPTION_TYPE(EntrySet, EntrySet, entry_set, DEFAULT_ENTRY_SET)
+OPTION_TYPE(EntrySet*, EntrySet, entry_set, NULL)
 
 /**
  * Returns a new entry set with the given initial capacity.

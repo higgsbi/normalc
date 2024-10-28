@@ -9,8 +9,7 @@ typedef struct {
 	void* value;
 } Entry;
 
-#define DEFAULT_ENTRY { NULL, NULL }
-OPTION_TYPE(Entry, Entry, entry, DEFAULT_ENTRY)
+OPTION_TYPE(Entry*, Entry, entry, NULL)
 
 Entry* entry_new(void* key, void* value);
 void entry_free(Entry* entry, Destructor key_destructor, Destructor value_destructor);

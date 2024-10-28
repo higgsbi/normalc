@@ -1,8 +1,6 @@
 #ifndef NORMALC_STRING_H
 #define NORMALC_STRING_H
 
-#include <string.h>
-#include "../error/error.h"
 #include "../collections/vector.h"
 
 /**
@@ -13,8 +11,7 @@ typedef struct {
 	size_t length;	
 } String;
 
-#define DEFAULT_STRING NULL
-OPTION_TYPE(String*, String, string, DEFAULT_STRING)
+OPTION_TYPE(String*, String, string, NULL)
 
 /**
  * Returns a new empty string

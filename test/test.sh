@@ -15,17 +15,9 @@ fi
 
 test_dir=$PWD
 
-if [[ ! -d "../build/" ]]; then
-	mkdir ../build
-	cd ../build/
-	cmake ..
-else
-	cd ../build/
-fi
-
-sudo make install | grep -w "Installing\|.h"
-
-cd ../test/
+cd ../
+./install.sh 
+cd $test_dir
 
 gcc -Werror -Wall $1 -L /usr/local/lib -lnormalc
 
