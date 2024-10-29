@@ -2,6 +2,7 @@
 #include "../memory/memory.h"
 #include "../string/string_builder.h"
 #include "../string/string.h"
+#include <normalc/collections/vector.h>
 #include <stdbool.h>
 #include <stdio.h>
 #include <string.h>
@@ -120,6 +121,38 @@ Path* path_parent(Path* path) {
 	return path_from_string(substring, true);
 }
 
+VECTOR_SAFE(String, string)
+
+Path* path_remove(Path* path, size_t index) {
+	ASSERT_NONNULL(path);
+
+	Vector* split = string_split(path->url, '/');
+	if (index > split->count - 1) {
+		return path_clone(path);
+	}
+
+	vector_delete(split, index);
+	StringBuilder* builder = string_builder_new();
+	
+	for (size_t i = 0; i < split->count; i++) {
+		bool is_first_dir = path->url->buffer[0] == '/';
+		bool is_final = i == split->count - 1;
+		bool is_last_dir = path->url->buffer[path->url->length - 1] == '/';
+
+		if (i == 0 && is_first_dir) {
+			string_builder_append_char(builder, '/');
+		}
+		
+		string_builder_append(builder, vector_string_get(split, i)->buffer);
+
+		if (!is_final || (is_final && is_last_dir)) {
+			string_builder_append_char(builder, '/');
+		} 
+	}
+
+	return path_from_string(string_builder_build(builder), true);
+}
+
 Path* path_append(Path* path, char* appended) {
 	ASSERT_NONNULL(path);
 	ASSERT_NONNULL(appended);
@@ -127,8 +160,17 @@ Path* path_append(Path* path, char* appended) {
 	Path* resolved = allocate(sizeof(Path));
 	StringBuilder* builder = string_builder_from(path->url->buffer);
 	string_builder_append(builder, appended);
+	char* null_terminated_builder = allocate(sizeof(char) * builder->length + 1);
+	strncpy(null_terminated_builder, builder->buffer, builder->length);
+	null_terminated_builder[builder->length] = '\0';
+
+	if (_cstring_is_dir(null_terminated_builder) && path->url->buffer[path->url->length - 1] != '/') {
+		string_builder_append_char(builder, '/');
+	}
+		
 	resolved->url = string_builder_build(builder);
 
+	free(null_terminated_builder);
 	string_builder_free(builder);
 
 	return resolved;	
@@ -152,6 +194,70 @@ bool path_exists(Path* path) {
 	struct stat path_stat;
     return (lstat(path->url->buffer, &path_stat) != 0);
 }
+
+String* path_name(Path* path) {
+	ASSERT_NONNULL(path);
+	if (path->url->length == 0 || string_equals(path->url, "/")) {
+		return string_from("/");
+	}
+
+	if (path_is_dir(path)) {
+		int start = string_nth_index_of_last(path->url, 2, '/');
+		return string_sub(path->url, start + 1, path->url->length - start - 2);
+	} else {
+		int start = string_nth_index_of_last(path->url, 1, '/');
+		return string_sub(path->url, start + 1, path->url->length - start - 1);
+	}
+}
+
+Path* path_normalize(Path* path) {
+	Vector* split = string_split(path->url, '/');
+	Vector* normal_splice = vector_new(split->count * 2, (Duplicator) string_clone, (Destructor) string_free);
+	StringBuilder* normalized = string_builder_new();
+
+	for (size_t i = 0; i < split->count; i++) {
+		String* current = vector_string_get(split, i);
+
+		if (string_equals(current, "..") && i == 0) {
+			Path* pwd = path_current();
+			Path* parent = path_parent(pwd);
+			String* parent_name = path_name(parent);						
+
+			vector_delete(normal_splice, i - 1);
+			vector_string_add(normal_splice, parent_name);
+
+			path_free(pwd);
+			path_free(parent);
+			string_free(parent_name);
+		} else if (string_equals(current, "..")) {
+			vector_delete(normal_splice, i - 1);
+		} else {
+			vector_string_add(normal_splice, string_clone(current));
+		}
+	}
+
+	for (size_t i = 0; i < normal_splice->count; i++) {
+		bool is_first_dir = path->url->buffer[0] == '/';
+		bool is_final = i == normal_splice->count - 1;
+		bool is_last_dir = path->url->buffer[path->url->length - 1] == '/';
+
+		if (i == 0 && is_first_dir) {
+			string_builder_append_char(normalized, '/');
+		}
+		
+		string_builder_append(normalized, vector_string_get(normal_splice, i)->buffer);
+
+		if (!is_final || (is_final && is_last_dir)) {
+			string_builder_append_char(normalized, '/');
+		} 
+	}
+
+	Path* normalized_path = path_from_string(string_builder_build(normalized), true);
+	vector_free(split);
+	vector_free(normal_splice);
+
+	return normalized_path;
+} 
 
 void path_free(Path* path) {
 	string_free(path->url);

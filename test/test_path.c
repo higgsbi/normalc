@@ -9,6 +9,9 @@ void test_metadata();
 void test_custom();
 void test_subdirectories();
 void test_reading();
+void test_name();
+void test_normalize();
+void test_removal();
 
 int main() {
 	test_relative();
@@ -16,7 +19,75 @@ int main() {
 	test_appending();
 	test_metadata();
 	test_subdirectories();
+	test_name();
+	test_normalize();
+	test_removal();
 	return 0;
+}
+
+void test_removal() {
+	printf("\n--Path Removal--\n\n");	
+	Path* file = path_from_cstring("/home/user/Documents/folder/test.txt");
+	Path* directory = path_from_cstring("/home/user/Documents/folder/subfolder/");
+
+	Path* file_removed = path_remove(file, 1);
+	Path* dir_removed = path_remove(directory, 3);
+
+	string_println(file_removed->url);
+	string_println(dir_removed->url);
+
+	path_free(file_removed);
+	path_free(dir_removed);
+	path_free(file);
+	path_free(directory);
+}
+
+void test_normalize() {
+	printf("\n--Path Normalization--\n\n");	
+	Path* home = path_user();
+	Path* moved = path_append(home, "../other/");
+	Path* moved_file = path_append(home, "../other/file.txt");
+	Path* normalized = path_normalize(moved);
+	Path* normalized_file = path_normalize(moved_file);
+
+	string_println(moved->url);
+	string_println(normalized->url);
+	string_println(moved_file->url);
+	string_println(normalized_file->url);
+
+	path_free(home);
+	path_free(moved);
+	path_free(moved_file);
+	path_free(normalized_file);
+	path_free(normalized);
+}
+
+void test_name() {
+	printf("\n--File Name--\n\n");	
+	Path* home = path_user();
+	Path* current = path_current();
+	Path* root = path_root();
+	Path* file = path_append(current, "text.txt");
+	String* home_name = path_name(home);
+	String* file_name = path_name(file);
+	String* root_name = path_name(root);
+
+	string_println(home->url);
+	string_println(home_name);
+	
+	string_println(file->url);
+	string_println(file_name);
+
+	string_println(root->url);
+	string_println(root_name);
+
+	path_free(home);
+	path_free(current);
+	path_free(file);
+	path_free(root);
+	string_free(file_name);
+	string_free(home_name);
+	string_free(root_name);
 }
 
 void test_subdirectories() {

@@ -69,6 +69,30 @@ Path* path_append(Path* path, char* appended);
  */
 String* path_extension(Path* path); 
 
+
+/**
+ * Returns the name of the file or directory of the given path
+ * Returns / if a root path is given
+ */
+String* path_name(Path* path);
+
+/**
+ * Returns the path normalized against the '..' pattern
+ * If '..' is the first string, `path_current()` is used to retrieve parent directory
+ */
+Path* path_normalize(Path* path);
+
+/**
+ * Returns the path with one of the path parts removed
+ * If no path could be removed, a cloned version of the original is returned
+ */
+Path* path_remove(Path* path, size_t index);
+
+/**
+ * Returns true if the given path exists
+ */
+bool path_exists(Path* path);
+
 /**
  * Returns a vector of Paths representing subdirectories 
  * and files in the given path.

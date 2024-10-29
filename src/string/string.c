@@ -55,7 +55,7 @@ String* string_from_format(char* format, ...) {
     va_start(args, format);
 
     String* string = (String*) allocate(sizeof(String));
-    vasprintf(&string->buffer,  format, args);
+    vasprintf(&string->buffer, format, args);
 	string->length = strlen(string->buffer);
 
     va_end(args);

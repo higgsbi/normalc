@@ -1,6 +1,7 @@
 #include "string_builder.h"
 #include "../memory/memory.h"
 #include "string.h"
+#include <stdarg.h>
 #include <stdlib.h>
 #include <string.h>
 
@@ -64,6 +65,19 @@ void string_builder_append(StringBuilder* builder, char* appended) {
 
 	strncpy(builder->buffer + builder->length, appended, length);
 	builder->length += length;
+}
+
+void string_builder_append_format(StringBuilder* builder, char* format, ...) {	
+	ASSERT_NONNULL(builder); 
+	ASSERT_NONNULL(format); 
+
+    va_list args;
+    va_start(args, format);
+    String* formatted = string_from_format(format, args);
+    va_end(args);
+
+	string_builder_append(builder, formatted->buffer);
+	string_free(formatted);
 }
 
 
