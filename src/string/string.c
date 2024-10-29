@@ -188,7 +188,7 @@ String* string_sub(String* src, size_t start, size_t length) {
 String* string_replace(String *src, char *replaced, char *replacer) {
 	ASSERT_NONNULL(src);
 	ASSERT_NONNULL(replaced);
-	ASSERT_NONNULL(replacer);
+	ASSERT_NONNULL(replaced);
 
 	StringBuilder* builder = string_builder_new();	
 
@@ -218,10 +218,9 @@ String* string_replace(String *src, char *replaced, char *replacer) {
 			start_unmatched = i + 1;
 		} else if (i == src->length - 1) {
 			// 3.) Add unmatched tail from source
-			string_builder_append_substring(builder, src->buffer, start_unmatched, i - start_unmatched);			
+			string_builder_append_substring(builder, src->buffer, start_unmatched, i - start_unmatched + 1);			
 		}
 	}
-
 
 	String* built = string_builder_build(builder);
 	string_builder_free(builder);	
