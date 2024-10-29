@@ -160,17 +160,13 @@ Path* path_append(Path* path, char* appended) {
 	Path* resolved = allocate(sizeof(Path));
 	StringBuilder* builder = string_builder_from(path->url->buffer);
 	string_builder_append(builder, appended);
-	char* null_terminated_builder = allocate(sizeof(char) * builder->length + 1);
-	strncpy(null_terminated_builder, builder->buffer, builder->length);
-	null_terminated_builder[builder->length] = '\0';
 
-	if (_cstring_is_dir(null_terminated_builder) && path->url->buffer[path->url->length - 1] != '/') {
+	if (_cstring_is_dir(appended) && appended[strlen(appended) - 1] != '/') {
 		string_builder_append_char(builder, '/');
 	}
 		
 	resolved->url = string_builder_build(builder);
 
-	free(null_terminated_builder);
 	string_builder_free(builder);
 
 	return resolved;	
