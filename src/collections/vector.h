@@ -140,6 +140,12 @@ void vector_sort(Vector* vector, Comparator comparator);
 void vector_delete(Vector* vector, size_t index);
 
 /**
+ * Frees all the elements in this vector leaving the vector with a size of 0
+ * but keeping the same capacity
+ */
+void vector_clear(Vector* vector);
+
+/**
  * Returns a splice (shallow copy) of the original vector
  */
 VectorSplice* vector_splice_from(Vector* vector, size_t start, size_t count);

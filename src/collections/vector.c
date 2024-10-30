@@ -110,6 +110,16 @@ void vector_delete(Vector* vector, size_t index) {
 	vector->destructor(value);
 }
 
+void vector_clear(Vector* vector) {
+	ASSERT_NONNULL(vector);
+	
+	for (size_t i = 0; i < vector->count; i++) {
+		vector->destructor(vector->data[i]);
+	}
+
+	vector->count = 0;
+}
+
 VectorSplice* vector_splice_from(Vector* vector, size_t start, size_t count) {
 	ASSERT_NONNULL(vector);
 	ASSERT_VALID_BOUNDS(collection, (int) start, (int) vector->count);

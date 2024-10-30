@@ -4,6 +4,9 @@
 #include "../../memory/memory.h"
 #include "../../safety/option.h"
 
+/**
+ * Defines a key value pairing for use in an EntrySet
+ */
 typedef struct {
 	void* key;
 	void* value;
