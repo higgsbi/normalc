@@ -10,10 +10,10 @@
  * Node defines a heap allocated void pointer element and a link
  * to another node used in a LinkedList
  */
-struct Node {
+typedef struct Node {
 	void* element;	
 	struct Node* next;
-};
+} Node;
 
 /**
  * Node defines a heap allocated opaque pointer element and a link
