@@ -158,7 +158,7 @@ int string_index_of_last_string(String* string, char* query) {
 	ASSERT_NONNULL(string->buffer);	
 	ASSERT_NONNULL(query);
 	
-	int length = strlen(query);
+	size_t length = strlen(query);
 
 	if (query[0] == '\0') {
 		return -1;
