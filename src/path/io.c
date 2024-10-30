@@ -2,6 +2,7 @@
 #include "../string/string.h"
 #include "../collections/vector.h"
 #include "../string/string.h"
+#include <normalc/string/string_builder.h>
 #include <stdbool.h>
 #include <stdio.h>
 

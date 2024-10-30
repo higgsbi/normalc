@@ -46,7 +46,7 @@
     		exit(EXIT_FAILURE); \
         }\
         return value.value; \
-    }
+    } \
 
 OPTION_TYPE(int, Int, int, 0)
 OPTION_TYPE(long, Long, long, 0L)

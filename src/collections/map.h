@@ -6,6 +6,8 @@
 #include "map/entry_set.h"
 #include <stdbool.h>
 
+#ifndef MAP_LOAD_SIZE
+
 /**
  * MAP_LOAD_SIZE is used to determine if the map needs to be rehashed.
  *
@@ -15,8 +17,6 @@
  * insert speeds at the cost of memory usage. If this is set to a higher value, the map will rehash
  * left often resulting in lower insert speeds, but less memory usage.
  */
-
-#ifndef MAP_LOAD_SIZE
 #define MAP_LOAD_SIZE 0.75
 #endif
 

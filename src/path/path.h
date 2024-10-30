@@ -67,8 +67,7 @@ Path* path_append(Path* path, char* appended);
  * Returns the extension of the given path. 
  * Returns a blank string if this file is a directory
  */
-String* path_extension(Path* path); 
-
+String* path_extension(Path* path);
 
 /**
  * Returns the name of the file or directory of the given path
