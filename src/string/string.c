@@ -126,10 +126,15 @@ int string_index_of_last(String* string, char query) {
 int string_index_of_string(String* string, char* query) {
 	ASSERT_NONNULL(string);
 	ASSERT_NONNULL(string->buffer);
+	ASSERT_NONNULL(query);
+
+	if (query[0] == '\0') {
+		return -1;
+	}
 
 	size_t length = strlen(query);
 
-	if (((int) string->length) - length < 1) {
+	if (string->length < length) {
 		return -1;
 	}
 
@@ -151,8 +156,17 @@ int string_index_of_string(String* string, char* query) {
 int string_index_of_last_string(String* string, char* query) {
 	ASSERT_NONNULL(string);
 	ASSERT_NONNULL(string->buffer);	
-
+	ASSERT_NONNULL(query);
+	
 	int length = strlen(query);
+
+	if (query[0] == '\0') {
+		return -1;
+	}
+
+	if (string->length < length) {
+		return -1;
+	}
 
 	for (int i = string->length - length - 1; i >= 0; i--) {
 		for (int j = length - 1; j >= 0; j--) {

@@ -9,9 +9,9 @@ void test_substrings();
 
 int main() {
 	test_string();
-	// test_builder();
-	// test_split();
-	// test_substrings();
+	test_builder();
+	test_split();
+	test_substrings();
 	return 0;
 }
 
