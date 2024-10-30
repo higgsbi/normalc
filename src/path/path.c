@@ -3,6 +3,7 @@
 #include "../string/string_builder.h"
 #include "../string/string.h"
 #include <normalc/collections/vector.h>
+#include <normalc/string/string_builder.h>
 #include <stdbool.h>
 #include <stdio.h>
 #include <string.h>
@@ -150,7 +151,11 @@ Path* path_remove(Path* path, size_t index) {
 		} 
 	}
 
-	return path_from_string(string_builder_build(builder), true);
+	Path* removed = path_from_string(string_builder_build(builder), true);
+	string_builder_free(builder);
+	vector_free(split);
+
+	return removed;
 }
 
 Path* path_append(Path* path, char* appended) {
@@ -224,7 +229,6 @@ Path* path_normalize(Path* path) {
 
 			path_free(pwd);
 			path_free(parent);
-			string_free(parent_name);
 		} else if (string_equals(current, "..")) {
 			vector_delete(normal_splice, i - 1);
 		} else {
@@ -249,6 +253,7 @@ Path* path_normalize(Path* path) {
 	}
 
 	Path* normalized_path = path_from_string(string_builder_build(normalized), true);
+	string_builder_free(normalized);
 	vector_free(split);
 	vector_free(normal_splice);
 
