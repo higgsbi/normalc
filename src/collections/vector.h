@@ -68,8 +68,8 @@ OPTION_TYPE(VectorSplice*, VectorSplice, vector_splice, NULL)
  * The duplicator and destructor cannot be null
  */
 Vector* vector_new(
-			size_t capacity, 
-			Duplicator duplicator, 
+			size_t capacity,
+			Duplicator duplicator,
 			Destructor destructor
 		);
 
@@ -132,7 +132,6 @@ void* vector_get_clone(Vector* vector, size_t index);
  * Sorts the vector via stdlib's qsort with the supplied comparator
  */
 void vector_sort(Vector* vector, Comparator comparator);
- // qsort(progress->data, progress->count, sizeof(Exercise*), exercise_compare);
 
 /**
  * Removes the element from the vector at the given index and frees it.

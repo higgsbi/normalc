@@ -39,8 +39,8 @@ void test_substrings() {
 	int end_elements = string_index_of(data, '\n');
 	int end_places = string_index_of_last(data, '\n');
 
-	String* elements = string_sub(data, start_places, end_places - start_places);
-	String* places = string_sub(data, start_elements, end_elements - start_elements);
+	String* elements = string_substring(data, start_places, end_places - start_places);
+	String* places = string_substring(data, start_elements, end_elements - start_elements);
 
 	string_println(data);
 	string_println(elements);

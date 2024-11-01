@@ -117,7 +117,7 @@ Path* path_parent(Path* path) {
 		last_slash = string_index_of_last(path->url, '/');	
 	}
 
-	String* substring = string_sub(path->url, 0, last_slash + 1);
+	String* substring = string_substring(path->url, 0, last_slash + 1);
 
 	return path_from_string(substring, true);
 }
@@ -184,7 +184,7 @@ String* path_extension(Path* path) {
 		return string_empty();
 	}
 
-	return string_sub(path->url, index + 1, path->url->length - index - 1);
+	return string_substring(path->url, index + 1, path->url->length - index - 1);
 }
 
 bool path_is_dir(Path* path) {
@@ -204,10 +204,10 @@ String* path_name(Path* path) {
 
 	if (path_is_dir(path)) {
 		int start = string_nth_index_of_last(path->url, 2, '/');
-		return string_sub(path->url, start + 1, path->url->length - start - 2);
+		return string_substring(path->url, start + 1, path->url->length - start - 2);
 	} else {
 		int start = string_nth_index_of_last(path->url, 1, '/');
-		return string_sub(path->url, start + 1, path->url->length - start - 1);
+		return string_substring(path->url, start + 1, path->url->length - start - 1);
 	}
 }
 

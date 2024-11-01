@@ -35,8 +35,9 @@ String* string_from(char* src) {
 	return string;
 }
 
-String* string_from_substring(char* source, size_t start, size_t length) {
+String* string_sub_cstring(char* source, size_t start, size_t length) {
 	ASSERT_NONNULL(source);
+	ASSERT_VALID_RANGE((int) start, (int) (start + length));
 
 	String* string = (String*) allocate(sizeof(String));
 	string->buffer = (char*) allocate(sizeof(char) * (length + 1));
@@ -183,20 +184,12 @@ int string_index_of_last_string(String* string, char* query) {
 	return -1;
 }
 
-String* string_sub(String* src, size_t start, size_t length) {
+String* string_substring(String* src, size_t start, size_t length) {
 	ASSERT_NONNULL(src);
-	ASSERT_VALID_RANGE((int) start, (int) (start + length));
 	ASSERT_VALID_BOUNDS(src, (int) start, (int) src->length);
 	ASSERT_VALID_BOUNDS(src, (int) (start + length), (int) src->length + 1);
 
-	String* string = (String*) allocate(sizeof(String));
-	string->buffer = (char*) allocate(sizeof(char) * length + 1);
-	string->length = length;
-
-	strncpy(string->buffer, src->buffer + start, length);
-	strncpy(string->buffer + string->length, "\0", 1);
-
-	return string;
+	return string_sub_cstring(src->buffer, start, length);
 }
 
 String* string_replace(String *src, char *replaced, char *replacer) {
@@ -279,11 +272,11 @@ Vector* string_split(String* src, char delimiter) {
 	for (size_t i = 0; i < src->length; i++) {
 		if (src->buffer[i] == delimiter) {
 			if (i > 0 && src->buffer[i - 1] != delimiter) {		
-				vector_add(vector, string_from_substring(src->buffer, last_start, i - last_start));
+				vector_add(vector, string_substring(src, last_start, i - last_start));
 			}
 			last_start = i + 1;
 		} else if (i == src->length - 1 && i > 0 && src->buffer[i - 1] != delimiter) {		
-			vector_add(vector, string_from_substring(src->buffer, last_start, i + 1 - last_start));
+			vector_add(vector, string_substring(src, last_start, i + 1 - last_start));
 		}
 	}
 
