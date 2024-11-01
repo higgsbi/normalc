@@ -104,13 +104,6 @@ int string_nth_index_of(String* string, size_t n, char query);
  */
 int string_index_of_string(String* string, char* query);
 
-/*
- * @Type String
- * Returns the index of the last instance of a query for the given string.
- * The index represents the 0th index of the given query
- * Returns -1 if none can be found
- */
-
 /**
  * @Type String
  * @Param String* string: string in which to search
