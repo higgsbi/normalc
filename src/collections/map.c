@@ -37,13 +37,8 @@ Map* map_new(
 	map->key_duplicator = key_duplicator;
 	map->value_duplicator = value_duplicator;
 
-	// 0 element map requires too much annoying bound checking and resizing -> 2 is an acceptable minimum
-	initial_capacity = (initial_capacity <= 0 ? 2 : initial_capacity);
+	initial_capacity = (initial_capacity <= 0 ? 1 : initial_capacity);
 	map->entries = entry_set_new(initial_capacity);
-
-	for (size_t i = 0; i < map->entries->capacity; i++) {
-		map->entries->data[i] = NULL; 
-	}	
 
 	return map;
 }

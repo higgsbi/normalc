@@ -46,7 +46,7 @@ void test_safety() {
 
 void test_removal() {
 	Map* map = map_new(
-				15,
+				0,
 				(Hasher) string_hash,
 				(EqualityChecker) string_equals_string_ignore_case,
 				(Destructor) string_free, 

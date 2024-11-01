@@ -9,7 +9,7 @@ EntrySet* entry_set_new(size_t capacity) {
 
 	entries->capacity = capacity;
 	entries->count = 0;
-	entries->data = allocate(sizeof(void*) * capacity);
+	entries->data = callocate(capacity, sizeof(void*));
 
 	return entries;
 }

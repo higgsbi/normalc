@@ -58,6 +58,21 @@ static void* allocate(size_t size) {
 	return pointer;
 }
 
+
+/**
+ * Wrapper around calloc which exists system and prints debug message on failure
+ */
+static void* callocate(size_t elements, size_t size) {
+	void* pointer = calloc(elements, size);
+	
+	if (!pointer) {
+		printf("Failed to callocate %zu elements of size %zu", elements, size);
+		exit(EXIT_FAILURE);
+	}
+
+	return pointer;
+}
+
 /**
  * Wrapper around realloc which exists system and prints debug message on failure
  */
