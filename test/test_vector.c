@@ -61,12 +61,11 @@ void test_splice() {
 
 	printf("\nOutput splice from index 2: \n");
 
-	VectorSplice* splice = vector_splice_from(vector, 2, vector->count - 2);
-	for (int i = 0; i < splice->count; i++) {
-		string_println(vector_splice_string_get(splice, i));
+	VectorSplice splice = vector_splice_from(vector, 2, vector->count - 2);
+	for (int i = 0; i < splice.count; i++) {
+		string_println(vector_splice_string_get(&splice, i));
 	}
 
-	vector_splice_free(splice);
 	vector_free(vector);
 }
 

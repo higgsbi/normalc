@@ -87,7 +87,8 @@ typedef struct {
 	size_t count;
 } MapSplice;
 
-OPTION_TYPE(MapSplice*, MapSplice, map_splice, NULL)
+#define DEFAULT_MAP_SPLICE { NULL, NULL, 0 }
+OPTION_TYPE(MapSplice, MapSplice, map_splice, DEFAULT_MAP_SPLICE)
 
 /**
  * Creates a new map with a given initial capacity.
@@ -154,7 +155,7 @@ void map_insert(Map* map, void* key, void* value);
 /**
  * Creates a splice from the given map. Each element is guaranteed to be non-null.
  */
-MapSplice* map_splice_new(Map* map);
+MapSplice map_splice_from(Map* map);
 
 /**
  * Returns the entry at the given index for this splice. This is guaranteed to be non-null.
@@ -167,7 +168,7 @@ Entry* map_splice_get_entry(MapSplice* splice, size_t index);
 void* map_splice_get_value(MapSplice* splice, size_t index);
 
 /**
- * Frees the map splice. Does not impact the referenced map.
+ * Frees the given splice leaving the map untouched
  */
 void map_splice_free(MapSplice* splice);
 

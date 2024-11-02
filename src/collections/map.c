@@ -202,7 +202,7 @@ size_t _map_index_from_hash(Map* map, size_t hash) {
 // SPLICE
 
 
-MapSplice* map_splice_new(Map* map) {
+MapSplice map_splice_from(Map* map) {
 	Vector* entries = vector_new(map->entries->count, duplicator_empty, destructor_empty);
 
 	for (size_t i = 0; i < map->entries->capacity; i++) {
@@ -220,18 +220,16 @@ MapSplice* map_splice_new(Map* map) {
 		}
 	}
 	
-	MapSplice* splice = allocate(sizeof(MapSplice));
-	splice->count = entries->count;
-	splice->original = map;
-	splice->entries = entries;
-
-	return splice;
+	return (MapSplice) {
+		.count = entries->count,
+		.original = map,
+		.entries = entries,	
+	};
 }
 
 void map_splice_free(MapSplice* splice) {
 	free(splice->entries->data);
 	free(splice->entries);
-	free(splice);
 }
 
 Entry* map_splice_get_entry(MapSplice* splice, size_t index) {

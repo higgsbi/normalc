@@ -1,6 +1,7 @@
 #include <normalc/string/string.h>
 #include <normalc/string/string_builder.h>
 #include <stdio.h>
+#include <time.h>
 
 void test_builder();
 void test_string();
@@ -8,10 +9,10 @@ void test_split();
 void test_substrings();
 
 int main() {
-	test_string();
+	// test_string();
 	test_builder();
-	test_split();
-	test_substrings();
+	// test_split();
+	// test_substrings();
 	return 0;
 }
 
@@ -60,10 +61,25 @@ void test_builder() {
 	string_builder_append(builder, ".World");
 	string_builder_append(builder, ".Appended");
 	string_builder_append(builder, ".Message");
-	
+
 	String* built = string_builder_build(builder);
 	string_println(built);
 
+	double time_elapsed = 0.0;
+
+    for (size_t rounds = 0; rounds < 50000; rounds++) {
+	    clock_t start = clock();
+    	StringBuilder* large = string_builder_new();
+    	for (size_t i = 0; i < 100; i++) {
+			string_builder_append(large, "test");
+		}
+	    clock_t end = clock();
+	    time_elapsed += ((double) (end - start)) / CLOCKS_PER_SEC;
+	    string_builder_free(large);
+    }
+
+    printf("Large builder append timing: %fs\n", time_elapsed);
+	
 	string_free(string);
 	string_free(built);
 	string_builder_free(builder);

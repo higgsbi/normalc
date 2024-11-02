@@ -11,6 +11,7 @@ StringBuilder* string_builder_new() {
 	StringBuilder* builder = (StringBuilder*) allocate(sizeof(StringBuilder));
 	(*builder).buffer = allocate(sizeof(char) * 1);
 	(*builder).length = 0;
+	(*builder).capacity = 1;
 
 	return builder;
 }
@@ -23,6 +24,7 @@ StringBuilder* string_builder_from(char* buffer) {
 	StringBuilder* builder = (StringBuilder*) allocate(sizeof(StringBuilder));
 	builder->buffer = allocate(sizeof(char) * length);
 	builder->length = length;
+	builder->capacity = length;
 
 	strncpy(builder->buffer, buffer, length);	
 
@@ -35,6 +37,7 @@ StringBuilder* string_builder_clone(StringBuilder* src) {
 	StringBuilder* copy = (StringBuilder*) allocate(sizeof(StringBuilder));
 	copy->buffer = allocate(sizeof(char) * src->length);
 	copy->length = src->length;
+	copy->capacity = src->capacity;
 
 	strncpy(copy->buffer, src->buffer, src->length);
 
@@ -110,8 +113,17 @@ void _string_builder_expand(StringBuilder* builder, size_t added) {
 	if (added == 0) {
 		return;
 	}
-	
-	builder->buffer = reallocate(builder->buffer, builder->length + added);	
+
+	if (builder->capacity < (builder->length + added)) {
+		if (added > builder->length) {
+			builder->capacity = builder->length + added;
+		} else {
+			builder->capacity = builder->length * 2;
+		}
+		builder->buffer = reallocate(builder->buffer, builder->capacity);	
+	}
 }
+
+
 
 

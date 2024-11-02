@@ -34,13 +34,13 @@ void test_safety() {
 	map_string_insert(map, string_from("Safe Key 1"), string_from("Safe Value 1"));
 	map_string_insert(map, string_from("Safe Key 2"), string_from("Safe Value 2"));
 
-	MapSplice* splice = map_splice_new(map);
+	MapSplice splice = map_splice_from(map);
 
-	for (size_t i = 0; i < splice->count; i++) {
-		string_println(map_splice_string_get_value(splice, i));
+	for (size_t i = 0; i < splice.count; i++) {
+		string_println(map_splice_string_get_value(&splice, i));
 	}
 	
-	map_splice_free(splice);
+	map_splice_free(&splice);
 	map_free(map);
 }
 
@@ -64,17 +64,17 @@ void test_removal() {
 		map_delete(map, string_from_format("Key %zu", i), true);
 	}
 
-	MapSplice* splice = map_splice_new(map);
+	MapSplice splice = map_splice_from(map);
 
-	for (size_t i = 0; i < splice->count; i++) {	
-		Entry* entry = map_splice_get_entry(splice, i);
+	for (size_t i = 0; i < splice.count; i++) {	
+		Entry* entry = map_splice_get_entry(&splice, i);
 		String* key = entry->key;
 		String* value = entry->value;	
 
 		printf("Pair { %s -> %s } \n", key->buffer, value->buffer);
 	}
 
-	map_splice_free(splice);
+	map_splice_free(&splice);
 	map_free(map);
 }
 
@@ -98,9 +98,9 @@ void test_complex_values() {
 		map_insert(map, string_from_format("Map key %zu", i), vector);	
 	}
 
-	MapSplice* splice = map_splice_new(map);
-	for (size_t i = 0; i < splice->count; i++) {
-		Entry* entry = map_splice_get_entry(splice, i);
+	MapSplice splice = map_splice_from(map);
+	for (size_t i = 0; i < splice.count; i++) {
+		Entry* entry = map_splice_get_entry(&splice, i);
 		String* key = entry->key;
 		Vector* value = entry->value;
 		string_println(key);
@@ -110,7 +110,7 @@ void test_complex_values() {
 		}
 	}
 
-	map_splice_free(splice);
+	map_splice_free(&splice);
 	map_free(map);
 }
 

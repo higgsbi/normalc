@@ -61,7 +61,8 @@ typedef struct {
 	size_t count;	
 } VectorSplice;
 
-OPTION_TYPE(VectorSplice*, VectorSplice, vector_splice, NULL)
+#define DEFAULT_VECTOR {NULL, 0, 0}
+OPTION_TYPE(VectorSplice, VectorSplice, vector_splice, DEFAULT_VECTOR)
 
 /**
  * Returns a new array with the given initial capacity.
@@ -147,16 +148,11 @@ void vector_clear(Vector* vector);
 /**
  * Returns a splice (shallow copy) of the original vector
  */
-VectorSplice* vector_splice_from(Vector* vector, size_t start, size_t count);
+VectorSplice vector_splice_from(Vector* vector, size_t start, size_t count);
 
 /**
  * Returns the element from the splice at the given index. 
  */
 void* vector_splice_get(VectorSplice* splice, size_t index);
-
-/**
- * Frees the given splice
- */
-void vector_splice_free(VectorSplice* splice);
 
 #endif

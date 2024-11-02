@@ -120,17 +120,29 @@ void vector_clear(Vector* vector) {
 	vector->count = 0;
 }
 
-VectorSplice* vector_splice_from(Vector* vector, size_t start, size_t count) {
+// VectorSplice* vector_splice_from(Vector* vector, size_t start, size_t count) {
+// 	ASSERT_NONNULL(vector);
+// 	ASSERT_VALID_BOUNDS(collection, (int) start, (int) vector->count);
+// 	ASSERT_VALID_BOUNDS(collection, (int) (start + count - 1), (int) vector->count);
+
+// 	VectorSplice* splice = allocate(sizeof(VectorSplice));
+// 	splice->start = start;
+// 	splice->count = count;
+// 	splice->original = vector;
+
+// 	return splice;
+// }
+
+VectorSplice vector_splice_from(Vector* vector, size_t start, size_t count) {
 	ASSERT_NONNULL(vector);
 	ASSERT_VALID_BOUNDS(collection, (int) start, (int) vector->count);
 	ASSERT_VALID_BOUNDS(collection, (int) (start + count - 1), (int) vector->count);
 
-	VectorSplice* splice = allocate(sizeof(VectorSplice));
-	splice->start = start;
-	splice->count = count;
-	splice->original = vector;
-
-	return splice;
+	return (VectorSplice) {
+		.start = start,
+		.count = count,
+		.original = vector,
+	};
 }
 
 void* vector_splice_get(VectorSplice* splice, size_t index) {
